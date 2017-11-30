@@ -6,4 +6,5 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCE_FILES
         README.md)
 
-add_executable(PCSC2017_Group12 ${SOURCE_FILES})
+add_subdirectory(src)
+#add_executable(PCSC2017_Group12 ${SOURCE_FILES})
