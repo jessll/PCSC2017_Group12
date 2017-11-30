@@ -26,4 +26,5 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
 
 
 add_subdirectory(src)
+add_subdirectory(Tests)
 #add_executable(PCSC2017_Group12 ${SOURCE_FILES})

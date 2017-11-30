@@ -1,6 +1,7 @@
 #ifndef VECTORHEADERDEF
 #define VECTORHEADERDEF
 
+#include<string>
 class Vector
 {
 private:
