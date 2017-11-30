@@ -28,10 +28,15 @@ public:
                            const Vector& v);
    friend Vector operator*(const Vector& v, 
                            const Matrix& m);
+
+   friend Matrix operator*(const Matrix& ml,
+                           const Matrix& mr);
 };
+
 // prototype signatures for friend operators
 Vector operator*(const Matrix& m, const Vector& v);
 Vector operator*(const Vector& v, const Matrix& m);
+Matrix operator*(const Matrix& ml, const Matrix& mr);
 
 #endif
 //Code from Appendix.tex line 608 save as Matrix.hpp

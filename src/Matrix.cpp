@@ -210,6 +210,27 @@ Vector operator*(const Vector& v, const Matrix& m)
    return new_vector;
 }
 
+// Overloading matrix multiplied by a matrix
+Matrix operator*(const Matrix& ml, const Matrix& mr)
+{
+    assert(ml.GetNumberOfColumns() == mr.GetNumberOfRows());
+    int new_rows = ml.GetNumberOfRows();
+    int new_cols = mr.GetNumberOfColumns();
+
+    Matrix new_matrix(new_rows, new_cols);
+
+    for (int i=0; i<new_rows; i++) {
+        for (int j=0; j<new_cols; j++) {
+            double sum = 0;
+            for (int k=0; k< new_cols; k++) {
+                sum += ml.mData[i][k]*mr.mData[k][j];
+            }
+            new_matrix(i,j) = sum;
+        }
+    }
+    return new_matrix;
+}
+
 // Calculate determinant of square matrix recursively
 double Matrix::CalculateDeterminant() const
 {
