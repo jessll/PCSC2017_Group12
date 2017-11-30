@@ -13,7 +13,7 @@ public:
    ~Matrix();
    int GetNumberOfRows() const;
    int GetNumberOfColumns() const;
-   double& operator()(int i, int j); //1-based indexing
+   double& operator()(int i, int j); //0-based indexing
    //overloaded assignment operator
    Matrix& operator=(const Matrix& otherMatrix);
    Matrix operator+() const; // unary +

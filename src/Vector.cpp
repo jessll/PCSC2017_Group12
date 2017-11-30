@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <fstream>
 #include <cassert>
 #include "Vector.hpp"
 
@@ -30,6 +31,7 @@ Vector::Vector(int size)
    }
 }
 
+
 // Overridden destructor to correctly free memory
 Vector::~Vector()
 {
@@ -45,7 +47,7 @@ int Vector::GetSize() const
 // Overloading square brackets
 // Note that this uses `zero-based' indexing,
 // and a check on the validity of the index
-double& Vector::operator[](int i)
+double& Vector::operator()(int i)
 {
    assert(i > -1);
    assert(i < mSize);
@@ -60,16 +62,6 @@ double Vector::Read(int i) const
    assert(i > -1);
    assert(i < mSize);
    return mData[i];
-}
-
-// Overloading round brackets
-// Note that this uses `one-based' indexing,
-// and a check on the validity of the index
-double& Vector::operator()(int i)
-{
-   assert(i > 0);
-   assert(i < mSize+1);
-   return mData[i-1];
 }
 
 // Overloading the assignment operator
@@ -89,7 +81,7 @@ Vector Vector::operator+() const
    Vector v(mSize);
    for (int i=0; i<mSize; i++)
    {
-      v[i] = mData[i];
+      v(i) = mData[i];
    }
    return v;
 }
@@ -100,7 +92,7 @@ Vector Vector::operator-() const
    Vector v(mSize);
    for (int i=0; i<mSize; i++)
    {
-      v[i] = -mData[i];
+      v(i) = -mData[i];
    }
    return v;
 }
@@ -112,7 +104,7 @@ Vector Vector::operator+(const Vector& v1) const
    Vector v(mSize);
    for (int i=0; i<mSize; i++)
    {
-      v[i] = mData[i] + v1.mData[i];
+      v(i) = mData[i] + v1.mData[i];
    }
    return v;
 }
@@ -124,7 +116,7 @@ Vector Vector::operator-(const Vector& v1) const
    Vector v(mSize);
    for (int i=0; i<mSize; i++)
    {
-      v[i] = mData[i] - v1.mData[i];
+      v(i) = mData[i] - v1.mData[i];
    }
    return v;
 }
@@ -135,9 +127,22 @@ Vector Vector::operator*(double a) const
    Vector v(mSize);
    for (int i=0; i<mSize; i++)
    {
-      v[i] = a*mData[i];
+      v(i) = a*mData[i];
    }
    return v;
+}
+
+// Overloading the binary * operator to implement the
+// inner product between two vectors
+double Vector::operator*(const Vector& v1) const
+{
+   assert(mSize == v1.mSize);
+   double inner_prod = 0;
+   for (int i=0; i<mSize; i++)
+   {
+      inner_prod += mData[i]*v1.mData[i];
+   }
+   return inner_prod;
 }
 
 // Method to calculate norm (with default value p=2)
@@ -153,9 +158,27 @@ double Vector::CalculateNorm(int p) const
    return norm_val;
 }
 
+
+int Vector::WriteVecToFile(std::string file_name, std::string directory) {
+    auto full_file_name = directory + file_name + ".vec";
+    std::ofstream file(full_file_name);
+    if (file.is_open()) {
+        file << mSize << "\n";
+        for (int i=0; i<mSize; i++) {
+            file << mData[i] << "\n";
+        }
+    }
+    else {
+        std::cout << "Cannot open the file and thus not write to it. This should be an exception \n";
+        return 1;
+    }
+    file.close();
+    return 0;
+}
+
 // MATLAB style friend to get the size of a vector
 int length(const Vector& v)
 {
    return v.mSize;
 }
-//Code from Chapter10.tex line 60 save as Vector.cpp
+

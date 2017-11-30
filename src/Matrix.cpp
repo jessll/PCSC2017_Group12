@@ -75,11 +75,11 @@ int Matrix::GetNumberOfColumns() const
 // and a check on the validity of the index
 double& Matrix::operator()(int i, int j)
 {
-   assert(i > 0);
-   assert(i < mNumRows+1);
-   assert(j > 0);
-   assert(j < mNumCols+1);
-   return mData[i-1][j-1];
+   assert(i > -1);
+   assert(i < mNumRows);
+   assert(j > -1);
+   assert(j < mNumCols);
+   return mData[i][j];
 }
 
 // Overloading the assignment operator
@@ -106,7 +106,7 @@ Matrix Matrix::operator+() const
    {
       for (int j=0; j<mNumCols; j++)
       {
-         mat(i+1,j+1) = mData[i][j];
+         mat(i,j) = mData[i][j];
       }
    }
    return mat;
@@ -120,7 +120,7 @@ Matrix Matrix::operator-() const
    {
       for (int j=0; j<mNumCols; j++)
       {
-         mat(i+1,j+1) = -mData[i][j];
+         mat(i,j) = -mData[i][j];
       }
    }
    return mat;
@@ -136,7 +136,7 @@ Matrix Matrix::operator+(const Matrix& m1) const
    {
       for (int j=0; j<mNumCols; j++)
       {
-         mat(i+1,j+1) = mData[i][j] + m1.mData[i][j];
+         mat(i,j) = mData[i][j] + m1.mData[i][j];
       }
    }
    return mat;
@@ -152,7 +152,7 @@ Matrix Matrix::operator-(const Matrix& m1) const
    {
       for (int j=0; j<mNumCols; j++)
       {
-         mat(i+1,j+1) = mData[i][j] - m1.mData[i][j];
+         mat(i,j) = mData[i][j] - m1.mData[i][j];
       }
    }
    return mat;
@@ -166,7 +166,7 @@ Matrix Matrix::operator*(double a) const
    {
       for (int j=0; j<mNumCols; j++)
       {
-         mat(i+1,j+1) = a*mData[i][j];
+         mat(i,j) = a*mData[i][j];
       }
    }
    return mat;
@@ -184,7 +184,7 @@ Vector operator*(const Matrix& m, const Vector& v)
    {
       for (int j=0; j<original_vector_size; j++)
       {
-         new_vector[i] += m.mData[i][j]*v.Read(j);
+         new_vector(i) += m.mData[i][j]*v.Read(j);
       }
    }
 
@@ -203,7 +203,7 @@ Vector operator*(const Vector& v, const Matrix& m)
    {
       for (int j=0; j<original_vector_size; j++)
       {
-         new_vector[i] += v.Read(j)*m.mData[j][i];
+         new_vector(i) += v.Read(j)*m.mData[j][i];
       }
    }
 
@@ -247,5 +247,7 @@ double Matrix::CalculateDeterminant() const
    }
    return determinant;
 }
+
+
 
 //Code from Appendix.tex line 651 save as Matrix.cpp
