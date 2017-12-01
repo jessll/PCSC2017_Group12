@@ -3,8 +3,8 @@ project(PCSC2017_Group12)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES
-        README.md)
+#set(SOURCE_FILES
+ #       README.md)
 
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
