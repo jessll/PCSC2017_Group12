@@ -15,10 +15,10 @@ Vector::Vector( const Vector &otherVector) : Matrix(otherVector) {}
 Vector::Vector(int size) : Matrix(size, 1) {}
 
 //Constructor for explicit row vector
-Vector::Vector(int size, bool isColumn) : Matrix(1,size) {
+Vector::Vector(int size, bool isColumn) : Matrix(size,1) {
     if(!isColumn){
-        mNumCols=1;
-        mNumRows= size;
+        mNumCols=size;
+        mNumRows= 1;
     }
 }
 

@@ -3,6 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include "../src/Matrix.hpp"
+#include "../src/Vector.hpp"
 int num_rows = 3;
 int num_cols = 4;
 double number_1 = 3.0;
@@ -91,6 +92,71 @@ TEST(MatrixTest, CheckMatMult){
 }
 
 
+TEST(MatrixTest, CheckTranspose){
+    // Create two matrices
+    Matrix test_mat(num_rows, num_cols);
+    test_mat(0,0) =  number_3;
+    test_mat(0,2) = number_1;
+    test_mat(1,2) = number_2;
+
+    //Assign to matrix of correct dimension
+    Matrix other_mat(num_cols, num_rows);
+    other_mat = test_mat.transpose();
+    EXPECT_DOUBLE_EQ(other_mat(0,0), number_3);
+    EXPECT_DOUBLE_EQ(other_mat(2,0), number_1);
+    EXPECT_DOUBLE_EQ(other_mat(2,1), number_2);
+
+    //Assign to new matrix
+    Matrix direct_mat= test_mat.transpose();
+    EXPECT_EQ(direct_mat.Rows(), num_cols);
+    EXPECT_EQ(direct_mat.Cols(), num_rows);
+    EXPECT_DOUBLE_EQ(direct_mat(2,1), number_2);
+}
+
+TEST(VectorTest, CheckConstructors){
+    Vector test_vec(num_cols);
+    EXPECT_EQ(test_vec.Cols(), 1);
+    EXPECT_EQ(test_vec.Rows(), num_cols);
+    EXPECT_EQ(test_vec.Size(), num_cols);
+    EXPECT_EQ(length(test_vec), num_cols);
+
+    Vector test_vec_col(num_cols, true);
+    EXPECT_EQ(test_vec.Cols(), 1);
+    EXPECT_EQ(test_vec.Rows(), num_cols);
+    EXPECT_EQ(test_vec.Size(), num_cols);
+
+    Vector test_vec_row(num_cols, false);
+    EXPECT_EQ(test_vec_row.Cols(), num_cols);
+    EXPECT_EQ(test_vec_row.Rows(), 1);
+    EXPECT_EQ(test_vec_row.Size(), num_cols);
+
+    Vector test_copy(test_vec_row);
+    EXPECT_EQ(test_vec_row.Cols(), num_cols);
+    EXPECT_EQ(test_vec_row.Rows(), 1);
+    EXPECT_EQ(test_vec_row.Size(), num_cols);
+}
+
+TEST(VectorTest, CheckTranspose){
+    Vector test_vec(num_cols);
+    test_vec(2)= 3.0;
+    Matrix transp_vec = test_vec.transpose();
+    EXPECT_DOUBLE_EQ(transp_vec(2), test_vec(2));
+}
+
+TEST(VectorTest, Checkp_norm) {
+    Vector test_vec(num_cols);
+    test_vec(0)= number_1;
+    test_vec(1) = number_2;
+    test_vec(2) = number_3;
+    double expected_result_1 =number_1+number_2+number_3;
+    double expected_result_2 = sqrt(number_1*number_1+number_2*number_2+number_3*number_3);
+    double norm_2 = test_vec.CalculateNorm();
+    EXPECT_DOUBLE_EQ(norm_2, expected_result_2);
+    norm_2 = test_vec.CalculateNorm(2);
+    double norm_1 = test_vec.CalculateNorm(1);
+    EXPECT_DOUBLE_EQ(norm_2, expected_result_2);
+    EXPECT_DOUBLE_EQ(norm_1, expected_result_1);
+}
 
 
 

@@ -1,7 +1,7 @@
 #ifndef VECTORHEADERDEF
 #define VECTORHEADERDEF
 
-#include<string>
+
 #include "Matrix.hpp"
 class Vector: public Matrix
 {
@@ -12,6 +12,7 @@ public:
 
     // Return size of the vector
     int Size() const;
+
     // assignment
     Vector& operator=(const Vector& otherVector);
     Vector operator+(const Vector& v1) const; // binary +
