@@ -17,12 +17,12 @@ public:
     Vector& operator=(const Vector& otherVector);
     Vector operator+(const Vector& v1) const; // binary +
     Vector operator-(const Vector& v1) const; // binary -
-    Matrix transpose() const override;
+    Vector  vec_transpose() const;
 
     // p-norm method
     double CalculateNorm(int p=2) const;
     bool isColumn() const;
-    // Write matrix vector product explicitely to obtain vectors
+    // Write matrix vector product explicitly to obtain vectors
     friend Vector operator*(const Vector& vl,
                             const Matrix& mr);
 
@@ -30,6 +30,7 @@ public:
                             const Vector& vr);
     // declare length function as a friend
     friend int length(const Vector& v);
+    friend Vector asVector(const Matrix& matrix);
 };
 
 #endif

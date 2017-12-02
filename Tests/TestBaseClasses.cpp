@@ -9,7 +9,6 @@ int num_cols = 4;
 double number_1 = 3.0;
 double number_2 = 1.5;
 double number_3= 4.3;
-
 TEST(MatrixTest, CreatesMatrixValid) {
     Matrix test_mat(num_rows, num_cols);
     EXPECT_EQ(test_mat.Cols(), num_cols);
@@ -139,8 +138,17 @@ TEST(VectorTest, CheckConstructors){
 TEST(VectorTest, CheckTranspose){
     Vector test_vec(num_cols);
     test_vec(2)= 3.0;
-    Matrix transp_vec = test_vec.transpose();
-    EXPECT_DOUBLE_EQ(transp_vec(2), test_vec(2));
+    // transpose as matrix
+    Matrix transp_as_mat = test_vec.transpose();
+//EXPECT_DOUBLE_EQ(transp_as_mat(2), test_vec(2));
+  //  EXPECT_FALSE((asVector(transp_as_mat)).isColumn());
+    // transpose as vector
+    Vector transp_as_vec = test_vec.vec_transpose();
+    EXPECT_DOUBLE_EQ(transp_as_vec(2), test_vec(2));
+
+    //check for dimensions
+    EXPECT_FALSE(transp_as_vec.isColumn());
+    EXPECT_TRUE(test_vec.isColumn());
 }
 
 TEST(VectorTest, Checkp_norm) {

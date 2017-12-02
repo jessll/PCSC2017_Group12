@@ -83,8 +83,8 @@ int length(const Vector& v)
 {
     return v.Size();
 }
-// Is this more efficient? Does it return a vector?
-Matrix Vector::transpose() const {
+// Is this more efficient? maybe do a friend function instead?
+Vector Vector::vec_transpose() const {
     Vector transp_vec(*this);
     transp_vec.mNumRows = mNumCols;
     transp_vec.mNumCols = mNumRows;
@@ -121,6 +121,29 @@ Vector operator*(const Matrix &ml, const Vector &vr) {
 
 bool Vector::isColumn() const {
     return mNumCols <= 1;
+}
+
+Vector asVector(const Matrix &matrix){
+    int rows = matrix.Rows();
+    int cols = matrix.Cols();
+    if (rows ==1) {
+        Vector as_vec(cols, false);
+        for (int index=0; index<cols; index++) {
+            as_vec(index) = matrix.at(index);
+        }
+        return as_vec;
+    }
+
+    if(cols ==1){
+        Vector as_vec(cols, true);
+        for (int index=0; index<rows; index++) {
+            as_vec(index) = matrix.at(index);
+        }
+        return as_vec;
+    }
+    Vector default_vec(1);
+    return  default_vec;
+    // throw exception
 }
 
 
