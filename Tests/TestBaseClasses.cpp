@@ -140,8 +140,8 @@ TEST(VectorTest, CheckTranspose){
     test_vec(2)= 3.0;
     // transpose as matrix
     Matrix transp_as_mat = test_vec.transpose();
-//EXPECT_DOUBLE_EQ(transp_as_mat(2), test_vec(2));
-  //  EXPECT_FALSE((asVector(transp_as_mat)).isColumn());
+    EXPECT_DOUBLE_EQ(transp_as_mat(2), test_vec(2));
+    EXPECT_FALSE((asVector(transp_as_mat)).isColumn());
     // transpose as vector
     Vector transp_as_vec = test_vec.vec_transpose();
     EXPECT_DOUBLE_EQ(transp_as_vec(2), test_vec(2));

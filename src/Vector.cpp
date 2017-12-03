@@ -1,6 +1,5 @@
 #include <cmath>
 #include <iostream>
-#include <fstream>
 #include <cassert>
 #include "Vector.hpp"
 
@@ -145,6 +144,27 @@ Vector asVector(const Matrix &matrix){
     return  default_vec;
     // throw exception
 }
+
+//dot product implementation that doesn't care about dimensions
+// Consider also doing one, that is explicit for dimensions
+
+double dotProduct(const Vector &vl, const Vector &vr) {
+    assert(vl.Size()== vr.Size());
+    double dot_product=0;
+    for ( int index =0; index <vl.Size(); index++){
+        dot_product +=vl.at(index)*vr.at(index);
+    }
+    return dot_product;
+}
+
+Vector Vector::operator*(double factor) const {
+    Vector new_vec(this->Size());
+    for (int index=0; index < this->Size(); index++) {
+        new_vec(index) = mData[index]*factor;
+    }
+    return new_vec;
+}
+
 
 
 

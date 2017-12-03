@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
 {
 
     Vector new_vector(5);
-    Matrix new_matrix(3,3);
+    Matrix new_matrix(1,3);
+    Vector test= asVector(new_matrix);
     return 0;
 }

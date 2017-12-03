@@ -1,6 +1,4 @@
-//
-// Created by mariella on 01.12.17.
-//
+
 
 #ifndef PCSC2017_GROUP12_LINSYSSOLVER_H
 #define PCSC2017_GROUP12_LINSYSSOLVER_H

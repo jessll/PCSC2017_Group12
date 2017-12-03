@@ -15,6 +15,7 @@ public:
 
     // assignment
     Vector& operator=(const Vector& otherVector);
+    Vector operator*(double factor) const;
     Vector operator+(const Vector& v1) const; // binary +
     Vector operator-(const Vector& v1) const; // binary -
     Vector  vec_transpose() const;
@@ -28,10 +29,14 @@ public:
 
     friend Vector operator*(const Matrix& ml,
                             const Vector& vr);
+
+    friend double dotProduct(const Vector& vl, const Vector& vr);
     // declare length function as a friend
     friend int length(const Vector& v);
     friend Vector asVector(const Matrix& matrix);
+
 };
 
+Vector asVector(const Matrix& matrix);
 #endif
 
