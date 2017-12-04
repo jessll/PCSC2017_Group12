@@ -16,6 +16,7 @@ public:
     double& operator()(int i, int j); //0-based indexing
     double& operator()(int index); // 0-based indexing in row-major format
     double at(int index) const; // read only access
+    double at(int row, int col) const; // read only access
     Matrix& operator=(const Matrix& otherMatrix);
     Matrix operator+() const; // unary +
     Matrix operator-() const; // unary -

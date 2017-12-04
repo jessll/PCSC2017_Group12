@@ -31,10 +31,10 @@ int LinSysSolver::WriteMatrixToFile(std::string full_file_name, Matrix& mat){
     int numCols = mat.Cols();
 
     if (file.is_open()) {
+        file << num_rows << " " << numCols << "\n";
         file.setf(std::ios::scientific);
         file.setf(std::ios::showpos);
         file.precision(13);
-        file << num_rows << " " << numCols << "\n";
         for( int row = 0; row < num_rows; row++){
             for( int col = 0; col <numCols; col++){
                 file << mat(row,col) << " ";

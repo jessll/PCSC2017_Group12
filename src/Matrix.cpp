@@ -60,7 +60,7 @@ double& Matrix::operator()(int row, int col) {
 
 // Overloading to allow for direct access of array
 double& Matrix::operator()(int index) {
-    assert(index> -1);
+    assert(index > -1);
     assert(index < mNumRows*mNumCols);
     return mData[index];
 }
@@ -171,6 +171,14 @@ Matrix Matrix::transpose() const{
         }
     }
     return transp_mat;
+}
+
+double Matrix::at(int row, int col) const {
+    assert(row > -1);
+    assert(row < mNumRows);
+    assert(col > -1);
+    assert(col < mNumCols);
+    return mData[row*mNumCols+col];
 }
 
 

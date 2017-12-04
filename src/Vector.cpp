@@ -125,16 +125,16 @@ bool Vector::isColumn() const {
 Vector asVector(const Matrix &matrix){
     int rows = matrix.Rows();
     int cols = matrix.Cols();
-    if (rows ==1) {
+    if (rows == 1) {
         Vector as_vec(cols, false);
-        for (int index=0; index<cols; index++) {
+        for (int index = 0; index< cols; index++) {
             as_vec(index) = matrix.at(index);
         }
         return as_vec;
     }
 
     if(cols ==1){
-        Vector as_vec(cols, true);
+        Vector as_vec(rows, true);
         for (int index=0; index<rows; index++) {
             as_vec(index) = matrix.at(index);
         }
@@ -150,8 +150,8 @@ Vector asVector(const Matrix &matrix){
 
 double dotProduct(const Vector &vl, const Vector &vr) {
     assert(vl.Size()== vr.Size());
-    double dot_product=0;
-    for ( int index =0; index <vl.Size(); index++){
+    double dot_product = 0;
+    for ( int index = 0; index <vl.Size(); index++){
         dot_product +=vl.at(index)*vr.at(index);
     }
     return dot_product;

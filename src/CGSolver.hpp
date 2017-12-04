@@ -9,7 +9,7 @@
 class CGSolver: public IterativeSolver
 {
 public:
-    virtual Vector Solve(const Matrix& A, const Vector& b);
+    Vector Solve(const Matrix& A, const Vector& b) override;
     // Preconditioned CG, uses inv(M) as precond, where M is a good preconditioner.
     Vector Solve(const Matrix& A, const Vector& b, const Matrix& precond);
 };
