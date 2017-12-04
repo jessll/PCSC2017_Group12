@@ -15,7 +15,7 @@ public:
     // Read matrix from file
     Matrix ReadMatrixFromFile(std::string path_to_file);
     // Write matrix to file
-    int WriteMatrixToFile(std::string path_to_file,Matrix& mat);
+    int WriteMatrixToFile(std::string full_file_name,Matrix& mat);
 };
 
 

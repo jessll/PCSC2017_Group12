@@ -1,5 +1,5 @@
 //
-// Example for a googletest
+// Tests for the Vector and Matrix class
 //
 #include "gtest/gtest.h"
 #include "../src/Matrix.hpp"
