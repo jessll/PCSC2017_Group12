@@ -11,9 +11,11 @@ private:
     double mW;
 public:
     RichSolver();
-    RichSolver(double w);
+    explicit RichSolver(double w);
     RichSolver(double w, double tol, int max_iter);
     Vector Solve(const Matrix& A, const Vector& b) override;
+    double GetParameterW();
+    int SetParameterW( double w);
 };
 
 #endif //PCSC2017_GROUP12_RICHSOLVER_HPP

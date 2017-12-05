@@ -1,6 +1,7 @@
 
 #include "RichSolver.hpp"
 #include <cassert>
+#include <iostream>
 
 RichSolver::RichSolver() : IterativeSolver(){
     mW = 0.5;
@@ -18,7 +19,7 @@ RichSolver::RichSolver(double w, double tol, int max_iter) : IterativeSolver(tol
 
 Vector RichSolver::Solve(const Matrix &A, const Vector &b) {
 
-    assert(b.Cols() == A.Rows());
+    assert(b.Rows() == A.Cols());
     // Generate starting guess to zero, enable starting guess in another function?
 
     // Initialize data.
@@ -27,10 +28,20 @@ Vector RichSolver::Solve(const Matrix &A, const Vector &b) {
         Vector residual = b-A*x;
         double res_norm = residual.CalculateNorm();
         if(res_norm< this->getTol()){
-            break;
+            return x;
         }
        x = x + residual*mW;
     }
+    std::cout << "Warning: Solver has not converged. \n";
     return x;
+}
+
+double RichSolver::GetParameterW() {
+    return mW;
+}
+
+int RichSolver::SetParameterW(double w) {
+    assert(w>0);
+    mW =w;
 }
 

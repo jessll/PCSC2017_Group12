@@ -2,11 +2,13 @@
 
 #include "CGSolver.hpp"
 #include <cassert>
+#include <iostream>
+#include <cmath>
 
 
 Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
     assert(A.Cols() == A.Rows());
-    assert(b.Cols() == A.Rows());
+    assert(b.Rows() == A.Cols());
     // Generate starting guess to zero, enable starting guess in another function?
 
     // Initialize data.
@@ -17,7 +19,7 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
 
         // Find next iteration and calculate remaining residual.
         Vector prod = A*p;
-        double alpha = residual.CalculateNorm() /dotProduct(p, prod);
+        double alpha = dotProduct(residual, residual) /dotProduct(p, prod);
         x = x + p*alpha;
         Vector residual_next = residual - prod*alpha;
 
@@ -25,20 +27,21 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
         // Decide if we have converged
         double norm_res = residual_next.CalculateNorm();
         if(norm_res < this->getTol()) {
-            break;
+            return x;
         }
         // Update residual ans search direction.
-        double beta =  norm_res/ residual.CalculateNorm();
+        double beta =  pow(norm_res/ residual.CalculateNorm(), 2);
         residual = residual_next;
         p =  residual + p*beta;
     }
 
+    std::cout<< "Warning solver has not converged.\n";
     return x;
 }
 
 Vector CGSolver::Solve(const Matrix &A, const Vector &b, const Matrix &precond) {
     assert(A.Cols() == A.Rows());
-    assert(b.Cols() == A.Rows());
+    assert(b.Rows() == A.Cols());
     // Generate starting guess to zero, enable starting guess in another function?
 
     // Initialize data.
@@ -68,3 +71,5 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b, const Matrix &precond) 
 
     return x;
 }
+
+CGSolver::CGSolver(double tol, int max_iter) : IterativeSolver(tol, max_iter) {}

@@ -22,6 +22,7 @@ TEST(MatrixTest, CanAssignReadValues) {
     EXPECT_DOUBLE_EQ(test_mat(0,2),number_1);
     EXPECT_DOUBLE_EQ(test_mat(2), number_1);
     EXPECT_DOUBLE_EQ(test_mat.at(2), number_1);
+    EXPECT_DOUBLE_EQ(test_mat.at(0,2), number_1);
 }
 
 TEST(MatrixTest, CopyConstructorWorks){
@@ -145,7 +146,7 @@ TEST(VectorTest, CheckTranspose){
     // transpose as vector
     Vector transp_as_vec = test_vec.vec_transpose();
     EXPECT_DOUBLE_EQ(transp_as_vec(2), test_vec(2));
-
+    EXPECT_DOUBLE_EQ(transp_as_vec.at(2), test_vec.at(2));
     //check for dimensions
     EXPECT_FALSE(transp_as_vec.isColumn());
     EXPECT_TRUE(test_vec.isColumn());
@@ -166,7 +167,14 @@ TEST(VectorTest, Checkp_norm) {
     EXPECT_DOUBLE_EQ(norm_1, expected_result_1);
 }
 
-
+TEST(VectorTest, CheckDotProduct) {
+    Vector test_vec(num_cols);
+    test_vec(0)= number_1;
+    test_vec(1) = number_2;
+    test_vec(2) = number_3;
+    double dot_prod = dotProduct(test_vec, test_vec);
+    EXPECT_DOUBLE_EQ(sqrt(dot_prod), test_vec.CalculateNorm());
+}
 
 
 int main(int argc, char **argv) {

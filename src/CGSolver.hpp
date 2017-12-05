@@ -9,6 +9,7 @@
 class CGSolver: public IterativeSolver
 {
 public:
+    CGSolver(double tol= 1e-05, int max_iter= 1000 );
     Vector Solve(const Matrix& A, const Vector& b) override;
     // Preconditioned CG, uses inv(M) as precond, where M is a good preconditioner.
     Vector Solve(const Matrix& A, const Vector& b, const Matrix& precond);

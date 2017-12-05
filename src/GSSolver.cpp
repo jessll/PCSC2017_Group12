@@ -4,29 +4,36 @@
 
 #include "GSSolver.hpp"
 #include <cassert>
-
+#include <iostream>
 
 Vector GSSolver::Solve(const Matrix &A, const Vector &b) {
     // rework this
     assert(A.Cols() == A.Rows());
-    assert(b.Cols() == A.Rows());
+    assert(b.Rows() == A.Cols());
     // Generate starting guess to zero, enable starting guess in another function?
 
     // Initialize data.
     Vector x(b.Size());
     //elementwise notation, to save space
+
     for(int iter= 0; iter< this->getMaxIter(); iter++){
-        double norm_res = (A*x-b).CalculateNorm();
+        //Check for convergence
+        double norm_res = (b-A*x).CalculateNorm();
         if(norm_res < this->getTol()) {
-            break; }
+            return x; }
+
         for (int row = 0; row <A.Rows(); row ++) {
             double sigma = 0;
             for(int col= 0; col <A.Cols(); col++) {
-                sigma += sigma + A.at(row,col) *x(col);
+                sigma +=  A.at(row,col) *x(col);
             }
-            sigma = sigma - x(row)*A.at(row,row); //This avoids if statement in code above
-            x(row) = (b.at(row) - sigma) * 1.0/A.at(row, row);
+            sigma = sigma - A.at(row,row)*x(row); //This avoids if statement in code above
+            x(row) = (b.at(row) - sigma) /A.at(row, row);
         }
     }
+
+    std::cout << "Warning solver has not converged. \n";
     return x;
 }
+
+GSSolver::GSSolver(double tol, int max_iter) : IterativeSolver(tol, max_iter) {}
