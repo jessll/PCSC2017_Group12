@@ -3,9 +3,7 @@ project(PCSC2017_Group12)
 
 set(CMAKE_CXX_STANDARD 11)
 
-#set(SOURCE_FILES
- #       README.md)
-
+###################### Include google_test into this project ################
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
         RESULT_VARIABLE result
@@ -24,7 +22,10 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
         ${CMAKE_BINARY_DIR}/googletest-build
         EXCLUDE_FROM_ALL)
 
+############ Actual project part #########
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -Wshadow")
 add_subdirectory(src)
+add_subdirectory(demo)
 add_subdirectory(Tests)
 #add_executable(PCSC2017_Group12 ${SOURCE_FILES})

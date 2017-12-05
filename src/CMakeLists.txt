@@ -11,7 +11,7 @@ if(TARGET lin_sys_lib)
 else()
 
     include_directories(${SHARED_LIB_INCLUDE_DIR})
-    set (LIB_SOURCE_FILES Matrix.cpp Vector.cpp main.cpp  LinSysSolver.cpp IterativeSolver.cpp CGSolver.cpp
+    set (LIB_SOURCE_FILES Matrix.cpp Vector.cpp  LinSysSolver.cpp IterativeSolver.cpp CGSolver.cpp
             JacSolver.cpp RichSolver.cpp GSSolver.cpp)
     add_library(lin_sys_lib  SHARED ${LIB_SOURCE_FILES})
 
