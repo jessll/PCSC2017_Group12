@@ -4,7 +4,6 @@
 
 #include "GSSolver.hpp"
 #include <cassert>
-#include <iostream>
 
 Vector GSSolver::Solve(const Matrix &A, const Vector &b) {
     // rework this
@@ -16,10 +15,10 @@ Vector GSSolver::Solve(const Matrix &A, const Vector &b) {
     Vector x(b.Size());
     //elementwise notation, to save space
 
-    for(int iter= 0; iter< this->getMaxIter(); iter++){
+    for(int iter= 0; iter< this->GetMaxIter(); iter++){
         //Check for convergence
         double norm_res = (b-A*x).CalculateNorm();
-        if(norm_res < this->getTol()) {
+        if(norm_res < this->GetTol()) {
             return x; }
 
         for (int row = 0; row <A.Rows(); row ++) {
@@ -32,7 +31,7 @@ Vector GSSolver::Solve(const Matrix &A, const Vector &b) {
         }
     }
 
-    std::cout << "Warning solver has not converged. \n";
+    this->PrintConvergenceWarning((b-A*x).CalculateNorm());
     return x;
 }
 

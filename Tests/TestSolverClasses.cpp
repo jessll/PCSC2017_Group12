@@ -3,10 +3,10 @@
 //
 
 #include "gtest/gtest.h"
-#include "../src/CGSolver.hpp"
-#include "../src/RichSolver.hpp"
-#include "../src/JacSolver.hpp"
-#include "../src/GSSolver.hpp"
+#include "CGSolver.hpp"
+#include "RichSolver.hpp"
+#include "JacSolver.hpp"
+#include "GSSolver.hpp"
 
 std::string path_to_test_files = "../../Tests/FilesForTests/";
 TEST(LinSysSolverTest, ReadAndWriteMatrix) {
@@ -41,19 +41,19 @@ TEST(RichSolverTest, CheckConstructorsAndSetGet) {
     // Default constructor
     RichSolver solver;
     EXPECT_DOUBLE_EQ(solver.GetParameterW(), 0.5);
-    EXPECT_DOUBLE_EQ(solver.getTol(), 1e-05);
-    EXPECT_EQ(solver.getMaxIter(),100);
+    EXPECT_DOUBLE_EQ(solver.GetTol(), 1e-05);
+    EXPECT_EQ(solver.GetMaxIter(),100);
 
     // Constructor that only specifies w
     RichSolver solver_w(0.3);
     EXPECT_DOUBLE_EQ(solver_w.GetParameterW(), 0.3);
-    EXPECT_DOUBLE_EQ(solver_w.getTol(), 1e-05);
-    EXPECT_EQ(solver_w.getMaxIter(),100);
+    EXPECT_DOUBLE_EQ(solver_w.GetTol(), 1e-05);
+    EXPECT_EQ(solver_w.GetMaxIter(),100);
     // Constructor setting all parameters
     RichSolver solver_all(0.3, 1e-03, 20);
     EXPECT_DOUBLE_EQ(solver_all.GetParameterW(), 0.3);
-    EXPECT_DOUBLE_EQ(solver_all.getTol(), 1e-03);
-    EXPECT_EQ(solver_all.getMaxIter(),20);
+    EXPECT_DOUBLE_EQ(solver_all.GetTol(), 1e-03);
+    EXPECT_EQ(solver_all.GetMaxIter(),20);
 
     // Testing set and get
     solver.SetParameterW(0.1);
@@ -62,15 +62,15 @@ TEST(RichSolverTest, CheckConstructorsAndSetGet) {
 
 TEST(LinSysSolverTest, CheckConstructorsAndSetGet) {
     CGSolver solver;
-    EXPECT_DOUBLE_EQ(solver.getTol(), 1e-05);
-    EXPECT_EQ(solver.getMaxIter(),1000);
+    EXPECT_DOUBLE_EQ(solver.GetTol(), 1e-05);
+    EXPECT_EQ(solver.GetMaxIter(),1000);
     CGSolver solver_param(1e-02, 1000);
-    EXPECT_DOUBLE_EQ(solver_param.getTol(), 1e-02);
-    EXPECT_EQ(solver_param.getMaxIter(),1000);
-    solver.setMaxIter(1);
-    EXPECT_EQ(1, solver.getMaxIter());
-    solver.setTol(1e-4);
-    EXPECT_DOUBLE_EQ(1e-4, solver.getTol());
+    EXPECT_DOUBLE_EQ(solver_param.GetTol(), 1e-02);
+    EXPECT_EQ(solver_param.GetMaxIter(),1000);
+    solver.SetMaxIter(1);
+    EXPECT_EQ(1, solver.GetMaxIter());
+    solver.SetTol(1e-4);
+    EXPECT_DOUBLE_EQ(1e-4, solver.GetTol());
 }
 
 TEST(RichSolverTest, SmallExample) {
@@ -81,14 +81,14 @@ TEST(RichSolverTest, SmallExample) {
     Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_sol.dat"));
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
-    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.getTol());
-    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.getTol());
+    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.GetTol());
+    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.GetTol());
 
     //Low tolerance
-    solver.setTol(1e-14);
+    solver.SetTol(1e-14);
     calc_sol = solver.Solve(mat, vec);
-    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.getTol());
-    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.getTol());
+    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.GetTol());
+    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.GetTol());
 }
 
 
@@ -101,14 +101,14 @@ TEST(JacSolverTest, SmallExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     EXPECT_NEAR(1.0/mat.at(0, 0), 2.0/3, 1e-06);
-    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.getTol());
-    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.getTol());
+    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.GetTol());
+    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.GetTol());
 
     //Low tolerance
-    solver.setTol(1e-14);
+    solver.SetTol(1e-14);
     calc_sol = solver.Solve(mat, vec);
-    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.getTol());
-    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.getTol());
+    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.GetTol());
+    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.GetTol());
 
 }
 
@@ -123,13 +123,13 @@ TEST(JacSolverTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
     //Low tolerance
-    solver.setTol(1e-9);
+    solver.SetTol(1e-9);
     calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
 }
 
@@ -143,13 +143,13 @@ TEST(GSSolverTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
     //Low tolerance
-    solver.setTol(1e-9);
+    solver.SetTol(1e-9);
     calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
 }
 
@@ -164,13 +164,13 @@ TEST(RichSolverTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
     //Low tolerance
-    solver.setTol(1e-9);
+    solver.SetTol(1e-9);
     calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
 }
 
@@ -182,14 +182,14 @@ TEST(GSSolverTest, SmallExample) {
     Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_sol.dat"));
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
-    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.getTol());
-    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.getTol());
+    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.GetTol());
+    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.GetTol());
 
     //Low tolerance
-    solver.setTol(1e-14);
+    solver.SetTol(1e-14);
     calc_sol = solver.Solve(mat, vec);
-    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.getTol());
-    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.getTol());
+    EXPECT_NEAR(ref_sol(0), calc_sol(0), solver.GetTol());
+    EXPECT_NEAR(ref_sol(1), calc_sol(1), solver.GetTol());
 
 }
 
@@ -204,13 +204,13 @@ TEST(CGTest, SmallExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
     //Low tolerance
-    solver.setTol(1e-8);
+    solver.SetTol(1e-8);
     calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
 }
 
@@ -225,12 +225,12 @@ TEST(CGTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
     //Low tolerance
-    solver.setTol(1e-09);
+    solver.SetTol(1e-09);
     calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.getTol());
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
 }

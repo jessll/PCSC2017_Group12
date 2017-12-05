@@ -1,7 +1,6 @@
 
 #include "RichSolver.hpp"
 #include <cassert>
-#include <iostream>
 
 RichSolver::RichSolver() : IterativeSolver(){
     mW = 0.5;
@@ -24,15 +23,15 @@ Vector RichSolver::Solve(const Matrix &A, const Vector &b) {
 
     // Initialize data.
     Vector x(b.Size());
-    for(int iter= 0; iter< this->getMaxIter(); iter++){
+    for(int iter= 0; iter< this->GetMaxIter(); iter++){
         Vector residual = b-A*x;
         double res_norm = residual.CalculateNorm();
-        if(res_norm< this->getTol()){
+        if(res_norm< this->GetTol()){
             return x;
         }
        x = x + residual*mW;
     }
-    std::cout << "Warning: Solver has not converged. \n";
+    this->PrintConvergenceWarning((b-A*x).CalculateNorm());
     return x;
 }
 

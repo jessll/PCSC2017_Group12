@@ -1,6 +1,5 @@
 #include "JacSolver.hpp"
 #include <cassert>
-#include <iostream>
 
 
 Vector JacSolver::Solve(const Matrix &A, const Vector &b) {
@@ -12,10 +11,10 @@ Vector JacSolver::Solve(const Matrix &A, const Vector &b) {
     // Initialize data.
     Vector x(b.Size());
     // Elementwise notation, to save space
-    for(int iter= 0; iter< this->getMaxIter(); iter++){
+    for(int iter= 0; iter< this->GetMaxIter(); iter++){
         // Check for convergence
         double res_norm = (b-A*x).CalculateNorm();
-        if(res_norm< this->getTol()){
+        if(res_norm< this->GetTol()){
             return x;
         }
         // calculate next guess
@@ -33,7 +32,7 @@ Vector JacSolver::Solve(const Matrix &A, const Vector &b) {
         x = x_next;
 
     }
-    std::cout << "Warning: Solver has not converged. \n";
+    this->PrintConvergenceWarning((b-A*x).CalculateNorm());
     return x;
 }
 

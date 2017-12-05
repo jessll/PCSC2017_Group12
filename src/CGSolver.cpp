@@ -2,7 +2,6 @@
 
 #include "CGSolver.hpp"
 #include <cassert>
-#include <iostream>
 #include <cmath>
 
 
@@ -15,7 +14,7 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
     Vector x(b.Size());
     Vector residual = b-A*x;
     Vector p(residual);
-    for(int iter= 0; iter< this->getMaxIter(); iter++){
+    for(int iter= 0; iter< this->GetMaxIter(); iter++){
 
         // Find next iteration and calculate remaining residual.
         Vector prod = A*p;
@@ -26,7 +25,7 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
 
         // Decide if we have converged
         double norm_res = residual_next.CalculateNorm();
-        if(norm_res < this->getTol()) {
+        if(norm_res < this->GetTol()) {
             return x;
         }
         // Update residual ans search direction.
@@ -35,7 +34,7 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
         p =  residual + p*beta;
     }
 
-    std::cout<< "Warning solver has not converged.\n";
+    this->PrintConvergenceWarning(residual.CalculateNorm());
     return x;
 }
 
@@ -48,7 +47,7 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b, const Matrix &precond) 
     Vector x(b.Size());
     Vector residual = b-A*x;
     Vector p= precond* residual;
-    for(int iter= 0; iter< this->getMaxIter(); iter++){
+    for(int iter= 0; iter< this->GetMaxIter(); iter++){
 
         // Find next iteration and calculate remaining residual.
         Vector prod = A*p;
@@ -60,7 +59,7 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b, const Matrix &precond) 
 
         // Decide if we have converged
         double norm_res = residual_next.CalculateNorm();
-        if(norm_res < this->getTol()) {
+        if(norm_res < this->GetTol()) {
             break;
         }
         // Update residual ans search direction.

@@ -2,8 +2,8 @@
 // Tests for the Vector and Matrix class
 //
 #include "gtest/gtest.h"
-#include "../src/Matrix.hpp"
-#include "../src/Vector.hpp"
+#include "Matrix.hpp"
+#include "Vector.hpp"
 int num_rows = 3;
 int num_cols = 4;
 double number_1 = 3.0;
