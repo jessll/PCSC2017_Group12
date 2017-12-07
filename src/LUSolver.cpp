@@ -1,12 +1,20 @@
 #include <cmath>
 #include <cassert>
 #include <iostream>
-#include "LUSolver.h"
 
+#include "LUSolver.hpp"
+#include "Matrix.hpp"
+#include "Vector.hpp"
+#include "Exception.hpp"
+
+LUSolver::LUSolver()
+{}
 
 Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
-    assert(A.Cols() == A.Rows());
-    assert(b.Cols() == A.Rows());
+    if (A.Cols() != A.Rows() || b.Cols() != A.Rows()){
+        throw (Exception("Size","Matrix or Vector size error"));
+    };
+
 
     // Initialize data.
     int n = b.Size();
@@ -31,8 +39,7 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
 
         // check for singularity
         if (0 == LU(Pivot,i)) {
-            cout << "matrix is singular" << endl;
-
+            throw (Exception("Matrix","Matrix is singular"));
         }
 
         // swap rows
