@@ -22,7 +22,7 @@ Matrix LinSysSolver::ReadMatrixFromFile(std::string full_file_name){
         return new_mat;
     }
     else {
-        std::cout << "Could not open or read from file. Check path!";
+        std::cerr << "Could not open or read from file. Check path!";
         throw( Exception("File", "Could not open and read from file!") );
     }
 }
@@ -48,7 +48,7 @@ int LinSysSolver::WriteMatrixToFile(std::string full_file_name, Matrix& mat){
         return 0;
     }
     else {
-        std::cout << "Cannot open the file and thus not write to it. \n";
+        std::cerr << "Cannot open the file and thus not write to it. \n";
         throw( Exception("File", "Could not open and write to file!") );
     }
 

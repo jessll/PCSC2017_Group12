@@ -43,6 +43,6 @@ int IterativeSolver::PrintConvergenceWarning(double res_norm) {
     std::ostringstream warning_msg;
     warning_msg << "Warning: Solver has not reached desired error tolerance of " << mTol <<", "
             "current error of residual is " << res_norm  <<". \n";
-    std::cout << warning_msg.str();
+    std::cerr << warning_msg.str();
     return 0;
 }

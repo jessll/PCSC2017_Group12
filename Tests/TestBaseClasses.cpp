@@ -185,8 +185,8 @@ TEST(VectorTest, CheckDotProduct) {
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     // Supress normal output of propagating the exceptions up, so we can focus on test output.
-    //std::ostringstream strCout;
-    //std::cerr.rdbuf( strCout.rdbuf() );
+    std::ostringstream swallow_cerr;
+    std::cerr.rdbuf(swallow_cerr.rdbuf());
 
     return RUN_ALL_TESTS();
 }

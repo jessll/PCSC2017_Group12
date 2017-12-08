@@ -195,7 +195,7 @@ TEST(GSSolverTest, SmallExample) {
 
 }
 
-TEST(CGTest, SmallExample) {
+TEST(CGSolverTest, SmallExample) {
     // Set up data
     CGSolver solver;
 
@@ -216,7 +216,7 @@ TEST(CGTest, SmallExample) {
     }
 }
 
-TEST(CGTest, BigExample) {
+TEST(CGSolverTest, BigExample) {
     // Set up data
     CGSolver solver;
 
@@ -233,6 +233,79 @@ TEST(CGTest, BigExample) {
     solver.SetTol(1e-09);
     calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
+    }
+}
+
+
+TEST(CGSolverTest, BigExamplePrecondIdentity) {
+    // Set up data
+    CGSolver solver;
+
+    Matrix mat = solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_mat.dat");
+    Vector vec = asVector(solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_vec.dat"));
+    Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_sol.dat"));
+    Matrix identity(mat.Rows(), mat.Cols());
+    for (int index = 0; index < mat.Rows(); index++) {
+        identity(index, index) = 1;
+    }
+    // Standard tolerance
+    Vector calc_sol = solver.Solve(mat, vec, identity);
+    for (int iter = 0; iter < ref_sol.Size(); iter++) {
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
+    }
+    //Low tolerance
+    solver.SetTol(1e-09);
+    calc_sol = solver.Solve(mat, vec, identity);
+    for (int iter = 0; iter < ref_sol.Size(); iter++) {
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
+    }
+}
+
+
+TEST(CGSolverTest, BigExamplePrecondDiag) {
+    // Set up data
+    CGSolver solver;
+
+    Matrix mat = solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_mat.dat");
+    Vector vec = asVector(solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_vec.dat"));
+    Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_sol.dat"));
+    Matrix diag(mat.Rows(), mat.Cols());
+    for (int index = 0; index < mat.Rows(); index++) {
+        diag(index, index) = 1.0 / mat(index, index);
+    }
+    // Standard tolerance
+    Vector calc_sol = solver.Solve(mat, vec, diag);
+    for (int iter = 0; iter < ref_sol.Size(); iter++) {
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
+    }
+    //Low tolerance
+    solver.SetTol(1e-09);
+    calc_sol = solver.Solve(mat, vec, diag);
+    for (int iter = 0; iter < ref_sol.Size(); iter++) {
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
+    }
+}
+
+
+TEST(CGSolverTest, PrecondCreator) {
+    // Set up data
+    CGSolver solver;
+
+    Matrix mat = solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_mat.dat");
+    Vector vec = asVector(solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_vec.dat"));
+    Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files + "Spd_Ex_size100_sol.dat"));
+
+    Matrix precond = solver.CreateDiagPreconditioner(mat);
+    // Standard tolerance
+    Vector calc_sol = solver.Solve(mat, vec, precond);
+    for (int iter = 0; iter < ref_sol.Size(); iter++) {
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
+    }
+    //Low tolerance
+    solver.SetTol(1e-09);
+    calc_sol = solver.Solve(mat, vec, precond);
+    for (int iter = 0; iter < ref_sol.Size(); iter++) {
         EXPECT_NEAR(ref_sol(iter), calc_sol(iter), solver.GetTol());
     }
 }
@@ -264,17 +337,6 @@ TEST(LUSolverTest, BigExample) {
     }
 }
 
-TEST(CholeskySolverTest, SmallExample) {
-    // Set up data
-    CholeskySolver solver;
-    Matrix mat = solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_mat.dat");
-    Vector vec = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_vec.dat"));
-    Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_sol.dat"));
-    // Check correction
-    Vector calc_sol = solver.Solve(mat, vec);
-    EXPECT_DOUBLE_EQ(ref_sol(0), calc_sol(0));
-    EXPECT_DOUBLE_EQ(ref_sol(1), calc_sol(1));
-}
 
 TEST(CholeskySolverTest, BigExample) {
     // Set up data
