@@ -4,9 +4,12 @@
 #include "Matrix.hpp"
 #include "Vector.hpp"
 #include "CGSolver.hpp"
+<<<<<<< HEAD
 #include "LUSolver.hpp"
 #include "Cholesky.hpp"
 #include "Exception.hpp"
+=======
+>>>>>>> 742bea752e4000e9ce56504b6422e5c0eff207c3
 
 int main(int argc, char* argv[])
 {

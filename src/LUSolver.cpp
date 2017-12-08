@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cassert>
 #include <iostream>
+#include "LUSolver.hpp"
 
 #include "LUSolver.hpp"
 #include "Matrix.hpp"
@@ -39,6 +40,7 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
         // check for singularity
         if (0 == LU(Pivot,i)) {
             throw (Exception("Matrix","Matrix is singular"));
+
         }
 
         // swap rows
