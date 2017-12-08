@@ -1,15 +1,12 @@
 
 #include <iostream>
-
+#include <Exception.hpp>
 #include "Matrix.hpp"
 #include "Vector.hpp"
 #include "CGSolver.hpp"
-<<<<<<< HEAD
 #include "LUSolver.hpp"
-#include "Cholesky.hpp"
 #include "Exception.hpp"
-=======
->>>>>>> 742bea752e4000e9ce56504b6422e5c0eff207c3
+#include "CholeskySolver.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -17,24 +14,33 @@ int main(int argc, char* argv[])
     int demo_size = 5;
     Vector demo_vector(demo_size);
     Matrix demo_matrix(demo_size, demo_size);
-
     // Fill them with values. The matrix will be an identity, the Vector contains values from 0 to demo_size
-    for (int index = 1; index< demo_size-1; index ++ ) {
+    for (int index = 0; index< demo_size; index ++ ) {
         demo_vector(index) = index;
         demo_matrix(index, index) = 1.0;
     }
 
     // Create a solver
     CGSolver solver;
+
     // Solve the system and print the result.
-    Vector demo_result = solver.Solve(demo_matrix, demo_vector);
-    std::cout << "Result vector of cg :\n";
+    Vector demo_result(5);
+    try
+    {
+        demo_result = solver.Solve(demo_matrix, demo_vector);
+    }
+    catch(const Exception& error)  {
+        error.PrintDebug();
+        return EXIT_FAILURE;
+    }
+
+    std::cout << "Result vector of demo with CG solver:\n";
     for (int index = 0; index< demo_size; index ++ ) {
         std::cout << demo_result.at(index) << "\n";
     }
 
 
-    // Create another solver
+    // Create another (direct) solver
     LUSolver ssolver;
     // Solve the system and print the result.
     try {
@@ -51,7 +57,7 @@ int main(int argc, char* argv[])
     }
 
     // Create cholesky slover
-    Cholesky csolver;
+    CholeskySolver csolver;
     try {
         Vector demo_result_2 = csolver.Solve(demo_matrix, demo_vector);
         std::cout << "Result vector of cholesky :\n";

@@ -2,6 +2,7 @@
 #include "LinSysSolver.hpp"
 #include <iostream>
 #include <fstream>
+#include "Exception.hpp"
 
 Matrix LinSysSolver::ReadMatrixFromFile(std::string full_file_name){
     std::ifstream file(full_file_name);
@@ -21,7 +22,8 @@ Matrix LinSysSolver::ReadMatrixFromFile(std::string full_file_name){
         return new_mat;
     }
     else {
-        std::cout << "Cannot open the file and thus not write to it. This should be an exception \n";
+        std::cout << "Could not open or read from file. Check path!";
+        throw( Exception("File", "Could not open and read from file!") );
     }
 }
 
@@ -46,9 +48,19 @@ int LinSysSolver::WriteMatrixToFile(std::string full_file_name, Matrix& mat){
         return 0;
     }
     else {
-        std::cout << "Cannot open the file and thus not write to it. This should be an exception \n";
-        return 1;
+        std::cout << "Cannot open the file and thus not write to it. \n";
+        throw( Exception("File", "Could not open and write to file!") );
     }
 
+}
+
+int LinSysSolver::CheckSolveInput(const Matrix &A, const Vector &b) {
+    if( A.Cols() != A.Rows()) {
+        throw Exception("LinSysSolver", "Input matrix must be square!");
+    }
+    if(b.Rows() != A.Cols()) {
+        throw Exception("LinSysSolver", "Dimension mismatch for linear system Ax=b.");
+    }
+    return 0;
 }
 

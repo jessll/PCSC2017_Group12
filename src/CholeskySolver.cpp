@@ -1,15 +1,15 @@
 #include <cassert>
 #include <iostream>
 #include <cmath>
-#include "Cholesky.hpp"
+#include "CholeskySolver.hpp"
 #include "Vector.hpp"
 #include "Matrix.hpp"
 #include "Exception.hpp"
 
-Cholesky::Cholesky()
+CholeskySolver::CholeskySolver()
 {}
 
-Vector Cholesky::Solve(const Matrix &A, const Vector &b) {
+Vector CholeskySolver::Solve(const Matrix &A, const Vector &b) {
     if (A.Cols() != A.Rows() || b.Rows() != A.Cols()){
         throw (Exception("Size","Matrix or Vector size error"));
     };

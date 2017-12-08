@@ -13,16 +13,15 @@ class IterativeSolver: public LinSysSolver
 private:
     double mTol;
     int mMaxIter;
+protected:
+    int PrintConvergenceWarning(double res_norm);
 public:
-    // Solver method
-    virtual Vector Solve(const Matrix& A, const Vector& b)=0;
     explicit IterativeSolver(double tol= 1e-05, int max_iter= 100 );
     // Iterative solver specific methods
     int SetMaxIter(int max_iter);
     int GetMaxIter();
     int SetTol(double new_tol);
     double GetTol();
-    int PrintConvergenceWarning(double res_norm);
 };
 
 
