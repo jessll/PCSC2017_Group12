@@ -1,6 +1,8 @@
 //
 // Tests for the Vector and Matrix class
 //
+#include <cmath>
+
 #include "gtest/gtest.h"
 #include "Matrix.hpp"
 #include "Vector.hpp"
