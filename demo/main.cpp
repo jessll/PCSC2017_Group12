@@ -1,8 +1,10 @@
 
 #include <iostream>
+#include <Exception.hpp>
 #include "Matrix.hpp"
 #include "Vector.hpp"
 #include "CGSolver.hpp"
+
 
 int main(int argc, char* argv[])
 {
@@ -10,6 +12,7 @@ int main(int argc, char* argv[])
     int demo_size = 5;
     Vector demo_vector(demo_size);
     Matrix demo_matrix(demo_size, demo_size);
+
     // Fill them with values. The matrix will be an identity, the Vector contains values from 0 to demo_size
     for (int index = 0; index< demo_size; index ++ ) {
         demo_vector(index) = index;
@@ -20,7 +23,16 @@ int main(int argc, char* argv[])
     CGSolver solver;
 
     // Solve the system and print the result.
-    Vector demo_result = solver.Solve(demo_matrix, demo_vector);
+    Vector demo_result(5);
+    try
+    {
+        demo_result = solver.Solve(demo_matrix, demo_vector);
+    }
+    catch(const Exception& error)  {
+        error.PrintDebug();
+        return EXIT_FAILURE;
+    }
+
     std::cout << "Result vector of demo :\n";
     for (int index = 0; index< demo_size; index ++ ) {
         std::cout << demo_result.at(index) << "\n";

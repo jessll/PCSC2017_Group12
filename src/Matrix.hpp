@@ -7,6 +7,10 @@ protected:
     double* mData; // entries of matrix
     int mNumRows, mNumCols; // dimensions
 
+    int CheckIndexValid(int row, int col) const;
+    int CheckIndexValid(int index) const;
+    int CheckDimensionsEqual(const Matrix &otherMatrix) const;
+
 public:
     Matrix(const Matrix& otherMatrix);
     Matrix(int numRows, int numCols);
@@ -28,6 +32,9 @@ public:
     // Friend for matrix matrix multiplication;
     friend Matrix operator*(const Matrix& ml,
                             const Matrix& mr);
+
+
+    int CheckDimensionsCompatible(int leftCols, int rightRows)const;
 };
 
 #endif

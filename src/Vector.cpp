@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cassert>
 #include "Vector.hpp"
+#include "Exception.hpp"
 
 // Overridden copy constructor
 // Allocates memory for new vector, and copies
@@ -28,8 +29,14 @@ int Vector::Size() const {
 
 // Overloading the assignment operator
 Vector& Vector::operator=(const Vector& otherVector)
-{    assert(mNumRows == otherVector.mNumRows);
-    assert(mNumCols == otherVector.mNumCols);
+{     try {
+        CheckDimensionsEqual(otherVector);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw(Exception("DimensionMismatch", "Cannot assign a vector of different dimensions to a vector that has "
+                "already been declared. Consider using the copy constructor instead."));
+    }
     for (int index=0; index<mNumRows*mNumCols; index++)
     {
         mData[index] = otherVector.mData[index];
@@ -40,8 +47,14 @@ Vector& Vector::operator=(const Vector& otherVector)
 
 // Overloading the binary + operator
 Vector Vector::operator+(const Vector& otherVector) const {
-    assert(mNumRows == otherVector.mNumRows);
-    assert(mNumCols == otherVector.mNumCols);
+    try {
+        CheckDimensionsEqual(otherVector);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw(Exception("DimensionMismatch", "Cannot add two vectors of different dimension. Check for row/column "
+                "vector or transpose, if you are sure the vectors have the same size."));
+    }
     int new_length= mNumCols*mNumRows;
     Vector v(new_length);
     for (int index=0; index<new_length; index++) {
@@ -52,8 +65,14 @@ Vector Vector::operator+(const Vector& otherVector) const {
 
 // Overloading the binary - operator
 Vector Vector::operator-(const Vector& otherVector) const {
-    assert(mNumRows == otherVector.mNumRows);
-    assert(mNumCols == otherVector.mNumCols);
+    try {
+        CheckDimensionsEqual(otherVector);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw(Exception("DimensionMismatch", "Cannot substract two vectors of different dimension. Check for "
+                "row/column vector or transpose, if you are sure the vectors have the same size."));
+    }
     int new_length= mNumCols*mNumRows;
     Vector v(new_length);
     for (int index=0; index<new_length; index++) {
@@ -66,7 +85,9 @@ Vector Vector::operator-(const Vector& otherVector) const {
 // Method to calculate norm (with default value p=2)
 // corresponding to the Euclidean norm
 double Vector::CalculateNorm(int p) const
-{
+{   if (p<=0) {
+        throw Exception("BadParameter", "Cannot calculate norm of negative or zero p.");
+    }
     double norm_val, sum = 0.0;
     for (int index=0; index<mNumCols*mNumRows; index++)
     {
@@ -90,7 +111,14 @@ Vector Vector::vec_transpose() const {
 }
 
 Vector operator*(const Vector &vl, const Matrix &mr) {
-    assert(vl.Cols() ==mr.Rows());
+    try{
+        vl.CheckDimensionsCompatible(vl.Cols(), mr.Rows());
+    }
+    catch( const Exception& error) {
+        error.PrintDebug();
+        throw Exception("DimensionMismatch", "Cannot multiply vector with matrix, because dimensions don't correspond"
+                ". Check if you use a row vector or multiply in correct order.");
+    }
     Vector res_v(vl.mNumCols, false);
     for (int v_index=0; v_index < vl.mNumCols; v_index++) {
         double sum = 0;
@@ -104,7 +132,14 @@ Vector operator*(const Vector &vl, const Matrix &mr) {
 }
 
 Vector operator*(const Matrix &ml, const Vector &vr) {
-    assert(ml.Cols() ==vr.Rows());
+    try{
+        ml.CheckDimensionsCompatible(ml.Cols(), vr.Rows());
+    }
+    catch( const Exception& error) {
+        error.PrintDebug();
+        throw Exception("DimensionMismatch", "Cannot multiply vector with matrix, because dimensions don't correspond"
+                ". Check if you use a column vector or multiply in correct order.");
+    }
     Vector res_v(vr.mNumRows);
     for (int v_index=0; v_index < vr.mNumRows; v_index++) {
         double sum = 0;
@@ -139,15 +174,22 @@ Vector asVector(const Matrix &matrix){
         }
         return as_vec;
     }
-    Vector default_vec(1);
-    return  default_vec;
-    // throw exception
+    // If we reach this part of the function. The matrix cannot be cast into a Vector.
+    throw Exception("BadInput", "This matrix does not have the dimensions of a Vector and thus cannot be used as a "
+            "Vector.");
 }
 
 //dot product implementation that doesn't care about dimensions
 // Consider also doing one, that is explicit for dimensions
 
 double dotProduct(const Vector &vl, const Vector &vr) {
+    try{
+        vl.CheckDimensionsCompatible(vl.Size(), vr.Size());
+    }
+    catch( const Exception& error) {
+        error.PrintDebug();
+        throw Exception("DimensionMismatch", "Cannot calculate the dotproduct of two vectors with different size.");
+    }
     assert(vl.Size()== vr.Size());
     double dot_product = 0;
     for ( int index = 0; index <vl.Size(); index++){

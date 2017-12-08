@@ -10,6 +10,8 @@
 /*! An abstract  class to define the interface for the linear system solver. */
 class LinSysSolver
 {
+protected:
+    int CheckSolveInput(const Matrix& A, const Vector& b);
 public:
     // Solver method
     virtual Vector Solve(const Matrix& A, const Vector& b) = 0;

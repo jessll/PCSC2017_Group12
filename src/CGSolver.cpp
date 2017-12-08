@@ -1,19 +1,25 @@
 
 
 #include "CGSolver.hpp"
+#include "Exception.hpp"
 #include <cassert>
 #include <cmath>
 
 
 Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
-    assert(A.Cols() == A.Rows());
-    assert(b.Rows() == A.Cols());
-    // Generate starting guess to zero, enable starting guess in another function?
+    try {
+        this->CheckSolveInput(A, b);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception("InvalidInput", "Bad input into 'Solve' function.");
+    }
 
     // Initialize data.
     Vector x(b.Size());
     Vector residual = b-A*x;
     Vector p(residual);
+
     for(int iter= 0; iter< this->GetMaxIter(); iter++){
 
         // Find next iteration and calculate remaining residual.
@@ -39,9 +45,17 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
 }
 
 Vector CGSolver::Solve(const Matrix &A, const Vector &b, const Matrix &precond) {
-    assert(A.Cols() == A.Rows());
-    assert(b.Rows() == A.Cols());
-    // Generate starting guess to zero, enable starting guess in another function?
+    try {
+        this->CheckSolveInput(A, b);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw(error);
+    }
+
+    if(precond.Cols() != A.Cols() || precond.Rows() != A.Rows()){
+        throw Exception("CGSolver", "Preconditioner does not fit matrix dimensions.");
+    }
 
     // Initialize data.
     Vector x(b.Size());

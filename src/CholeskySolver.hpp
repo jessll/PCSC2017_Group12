@@ -4,10 +4,10 @@
 
 #include "DirectSolver.hpp"
 
-class Cholesky:public DirectSolver{
+class CholeskySolver:public DirectSolver{
 
 public:
-    Cholesky();
+    CholeskySolver();
     virtual Vector Solve(const Matrix& A, const Vector& b);
 };
 

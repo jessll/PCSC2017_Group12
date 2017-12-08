@@ -1,25 +1,43 @@
 
 #include "RichSolver.hpp"
+#include "Exception.hpp"
 #include <cassert>
+#include <iostream>
 
 RichSolver::RichSolver() : IterativeSolver(){
     mW = 0.5;
 }
 
 RichSolver::RichSolver(double w) : IterativeSolver() {
-    assert(w>0);
-    mW =w;
+    try {
+        this->SetParameterW(w);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception ("InitError", "Could not initialize solver. Probably due to a bad parameter.");
+    }
+
 }
 
 RichSolver::RichSolver(double w, double tol, int max_iter) : IterativeSolver(tol, max_iter) {
-    assert(w>0);
-    mW =w;
+    try {
+        this->SetParameterW(w);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception ("InitError", "Could not initialize solver. Probably due to a bad parameter.");
+    }
 }
 
 Vector RichSolver::Solve(const Matrix &A, const Vector &b) {
 
-    assert(b.Rows() == A.Cols());
-    // Generate starting guess to zero, enable starting guess in another function?
+    try {
+        this->CheckSolveInput(A, b);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception("InvalidInput", "Bad input into 'Solve' function.");
+    }
 
     // Initialize data.
     Vector x(b.Size());
@@ -32,6 +50,7 @@ Vector RichSolver::Solve(const Matrix &A, const Vector &b) {
        x = x + residual*mW;
     }
     this->PrintConvergenceWarning((b-A*x).CalculateNorm());
+    std::cout << "Check your parameter w, it might not be in a good range.\n";
     return x;
 }
 
@@ -40,7 +59,10 @@ double RichSolver::GetParameterW() {
 }
 
 int RichSolver::SetParameterW(double w) {
-    assert(w>0);
+    if(w <= 0){
+        throw Exception("BadParameter", "W has to be larger than 0");
+    }
     mW =w;
+    return 0;
 }
 

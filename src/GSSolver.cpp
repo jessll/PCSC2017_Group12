@@ -3,13 +3,17 @@
 //
 
 #include "GSSolver.hpp"
-#include <cassert>
+#include "Exception.hpp"
+#include "cmath"
 
 Vector GSSolver::Solve(const Matrix &A, const Vector &b) {
-    // rework this
-    assert(A.Cols() == A.Rows());
-    assert(b.Rows() == A.Cols());
-    // Generate starting guess to zero, enable starting guess in another function?
+    try {
+        this->CheckSolveInput(A, b);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception("InvalidInput", "Bad input into 'Solve' function.");
+    }
 
     // Initialize data.
     Vector x(b.Size());
@@ -27,6 +31,11 @@ Vector GSSolver::Solve(const Matrix &A, const Vector &b) {
                 sigma +=  A.at(row,col) *x(col);
             }
             sigma = sigma - A.at(row,row)*x(row); //This avoids if statement in code above
+
+            if(std::abs(A.at(row, row)) < 1e-14) {
+                throw (Exception("GSSolver","Diagonal element of matrix close to zero. Danger of zero division. Check "
+                        "if input matrix is actually diagonally dominant or spd."));
+            }
             x(row) = (b.at(row) - sigma) /A.at(row, row);
         }
     }
