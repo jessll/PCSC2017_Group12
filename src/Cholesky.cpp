@@ -59,15 +59,9 @@ Vector Cholesky::Solve(const Matrix &A, const Vector &b) {
 
     //check whether matrix is positive definition
     S = L * LT;
-    for (int i = 0; i < n*n; i++)
-<<<<<<< HEAD
+    for (int i = 0; i < n*n; i++){
         if (S(i) - AA(i) > 1e-03){
-            throw (Exception("Matrix","Matrix is not positive definition"));
-=======
-        if (S(i) != AA(i)){
-            throw (Exception("Matrix","Matrix is not positive definite."));
->>>>>>> 742bea752e4000e9ce56504b6422e5c0eff207c3
-        };
+            throw (Exception("Matrix","Matrix is not positive definition"));}}
 
     //solve linear system by forward substitution method
 
