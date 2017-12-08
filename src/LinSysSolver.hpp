@@ -18,5 +18,4 @@ public:
     int WriteMatrixToFile(std::string full_file_name,Matrix& mat);
 };
 
-
 #endif //PCSC2017_GROUP12_LINSYSSOLVER_H

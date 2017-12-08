@@ -27,11 +27,10 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
     for (int i = 0; i < n; i++)
         P(i) = i;
 
-    // outer loop over diagonal pivots
+    // loop over diagonal pivots
     for (int i = 0; i < n - 1; i++) {
 
-        // inner loop to find the largest pivot
-        // (dividing by small numbers is bad so want largest one)
+        // find the largest pivot
         int Pivot = i;
         for (int k = i + 1; k < n; k++)
             if (fabs(LU(k,i)) > fabs(LU(i,i)))
@@ -46,7 +45,7 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
         if (Pivot != i) {
             int temp = P(Pivot);
             P(Pivot) = P(i);
-            P(i) = P(Pivot);
+            P(i) = temp;
 
             for (int k = i; k < n; k++){
                 double tem = LU(i,k);
@@ -59,13 +58,12 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
         for (int k = i + 1; k < n; k++) {
             // lower triangle factor is L
             LU(k,i) /= LU(i,i);
-
             for (int j = i + 1; j < n; j++)
                 LU(k,j) = LU(k,j) - LU(i,j) * LU(k,i);
         }
     }
 
-    //solve linear system by forward subtitution method
+    //solve linear system by forward substitution method
 
     for(int i = 0; i < n; i++)
         x(i) = bb(P(i));
