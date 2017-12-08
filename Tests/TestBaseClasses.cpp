@@ -18,6 +18,7 @@ TEST(MatrixTest, CreatesMatrixValid) {
     EXPECT_DOUBLE_EQ(test_mat(0,0),0.0);
 }
 
+
 TEST(MatrixTest, CanAssignReadValues) {
     Matrix test_mat(num_rows, num_cols);
     test_mat(0,2)= number_1;
@@ -70,6 +71,7 @@ TEST(MatrixTest, BasicOperatorsOverload){
 
 }
 
+
 TEST(MatrixTest, CheckMatMult){
     // Create two matrices
     Matrix test_mat(num_rows, num_cols);
@@ -93,7 +95,6 @@ TEST(MatrixTest, CheckMatMult){
     EXPECT_DOUBLE_EQ(res_mat(2,2), 0.0);
 }
 
-
 TEST(MatrixTest, CheckTranspose){
     // Create two matrices
     Matrix test_mat(num_rows, num_cols);
@@ -114,6 +115,7 @@ TEST(MatrixTest, CheckTranspose){
     EXPECT_EQ(direct_mat.Cols(), num_rows);
     EXPECT_DOUBLE_EQ(direct_mat(2,1), number_2);
 }
+
 
 TEST(VectorTest, CheckConstructors){
     Vector test_vec(num_cols);
@@ -179,7 +181,12 @@ TEST(VectorTest, CheckDotProduct) {
 }
 
 
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
+    // Supress normal output of propagating the exceptions up, so we can focus on test output.
+    //std::ostringstream strCout;
+    //std::cerr.rdbuf( strCout.rdbuf() );
+
     return RUN_ALL_TESTS();
 }

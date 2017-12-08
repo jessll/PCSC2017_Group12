@@ -59,6 +59,11 @@ Vector CholeskySolver::Solve(const Matrix &A, const Vector &b) {
 
     //check whether matrix is positive definition
     S = L * LT;
+    for (int i = 0; i < n*n; i++) {
+        if (S(i) - AA(i) > 1e-03) {
+            throw (Exception("Matrix", "Matrix is not positive definite"));
+        }
+    }
     for (int i = 0; i < n*n; i++){
         if (S(i) - AA(i) > 1e-03){
             throw (Exception("Matrix","Matrix is not positive definition"));}}
@@ -78,6 +83,5 @@ Vector CholeskySolver::Solve(const Matrix &A, const Vector &b) {
         }
         x(i) /= LT(i,i);
     }
-
     return x;
 }
