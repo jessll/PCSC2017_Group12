@@ -12,7 +12,7 @@ else()
 
     include_directories(${SHARED_LIB_INCLUDE_DIR})
     set (LIB_SOURCE_FILES Matrix.cpp Vector.cpp  LinSysSolver.cpp IterativeSolver.cpp CGSolver.cpp
-            JacSolver.cpp RichSolver.cpp GSSolver.cpp)
+            JacSolver.cpp RichSolver.cpp GSSolver.cpp DirectSolver.cpp Exception.cpp LUSolver.cpp Cholesky.cpp)
     add_library(lin_sys_lib  SHARED ${LIB_SOURCE_FILES})
 
 endif()

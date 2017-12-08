@@ -12,6 +12,7 @@
 
 class DirectSolver:public LinSysSolver {
 public:
+    DirectSolver();
     // Solver method
     virtual Vector Solve(const Matrix& A, const Vector& b)=0;
 

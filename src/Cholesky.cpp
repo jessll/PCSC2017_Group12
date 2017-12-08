@@ -1,11 +1,18 @@
 #include <cassert>
 #include <cmath>
 #include "Cholesky.hpp"
+#include "Vector.hpp"
+#include "Matrix.hpp"
+#include "Exception.hpp"
+
+Cholesky::Cholesky()
+{}
 
 Vector Cholesky::Solve(const Matrix &A, const Vector &b) {
-    assert(A.Cols() == A.Rows());
-    assert(b.Cols() == A.Rows());
-    
+    if (A.Cols() != A.Rows() || b.Rows() != A.Cols()){
+        throw (Exception("Size","Matrix or Vector size error"));
+    };
+
 
     int n = b.Size();
     double sum1 = 0.0;
@@ -13,13 +20,11 @@ Vector Cholesky::Solve(const Matrix &A, const Vector &b) {
     double sum3 = 0.0;
 
     Matrix AA(A);
-    Matrix Zero(A);
     Matrix L(A.Rows(),A.Cols());
     Matrix LT(A.Rows(),A.Cols());
     Matrix S(A.Rows(),A.Cols());
     Vector x(n);
     Vector bb(n);
-
 
     L(0,0) = sqrt(AA(0,0));
 
@@ -52,8 +57,9 @@ Vector Cholesky::Solve(const Matrix &A, const Vector &b) {
     //check whether matrix is positive definition
     S = L * LT;
     for (int i = 0; i < n*n; i++)
-        assert (S(i) == AA(i));
-
+        if (S(i) != AA(i)){
+            throw (Exception("Matrix","Matrix is not positive definite."));
+        };
 
     //solve linear system by forward subtitution method
     for(int i = 0; i < n; i++)
