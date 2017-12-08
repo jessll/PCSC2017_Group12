@@ -260,7 +260,7 @@ TEST(LUSolverTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_DOUBLE_EQ(ref_sol(iter), calc_sol(iter));
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), 1e-06);
     }
 }
 
@@ -286,6 +286,6 @@ TEST(CholeskySolverTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_DOUBLE_EQ(ref_sol(iter), calc_sol(iter));
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), 1e-06);
     }
 }

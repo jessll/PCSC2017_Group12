@@ -4,7 +4,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${LIB_INCLUDE_DIR})
 
 # Add executable of tests
-add_executable(BasicTests TestBaseClasses.cpp  TestSolverClasses.cpp)
+add_executable(BasicTests TestBaseClasses.cpp TestSolverClasses.cpp  TestExceptionalCases.cpp)
 
 # Link to lin_sys_libary we created and g_test
 target_link_libraries(BasicTests  gtest_main lin_sys_lib)

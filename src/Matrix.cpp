@@ -58,7 +58,7 @@ double& Matrix::operator()(int row, int col) {
     }
     catch (const Exception& error){
         error.PrintDebug();
-        Exception("BadInput", "Cannot access matrix at this index.");
+        throw Exception("BadInput", "Cannot access matrix at this index.");
     }
     return mData[row*mNumCols+col];
 }
@@ -70,7 +70,7 @@ double& Matrix::operator()(int index) {
     }
     catch (const Exception& error){
         error.PrintDebug();
-        Exception("BadInput", "Cannot access matrix at this index.");
+        throw Exception("BadInput", "Cannot access matrix at this index.");
     }
     return mData[index];
 }
@@ -81,7 +81,7 @@ double Matrix::at(int index) const{
     }
     catch (const Exception& error){
         error.PrintDebug();
-        Exception("BadInput", "Cannot access matrix at this index.");
+        throw Exception("BadInput", "Cannot access matrix at this index.");
     }
     return mData[index];
 }
@@ -116,10 +116,11 @@ Matrix Matrix::operator+() const {
 
 // Overloading the unary - operator
 Matrix Matrix::operator-() const {
+
     Matrix mat(mNumRows, mNumCols);
     for (int row=0; row<mNumRows; row++) {
         for (int col=0; col<mNumCols; col++) {
-            mat(row,col) = -mData[row*mNumCols+col];
+            mat(row,col) = - mData[row*mNumCols+col];
         }
     }
     return mat;
@@ -225,7 +226,7 @@ double Matrix::at(int row, int col) const {
 
 
 int Matrix::CheckIndexValid(int row, int col) const{
-    if( row <0 || col < 0 || row >=mNumRows || col >=mNumRows) {
+    if( row < 0 || col < 0 || row >=mNumRows || col >=mNumCols) {
         throw Exception("BadIndex", "Index exceeds dimensions.");
     }
     return 0;

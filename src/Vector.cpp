@@ -119,8 +119,8 @@ Vector operator*(const Vector &vl, const Matrix &mr) {
         throw Exception("DimensionMismatch", "Cannot multiply vector with matrix, because dimensions don't correspond"
                 ". Check if you use a row vector or multiply in correct order.");
     }
-    Vector res_v(vl.mNumCols, false);
-    for (int v_index=0; v_index < vl.mNumCols; v_index++) {
+    Vector res_v(mr.Cols(), false);
+    for (int v_index=0; v_index < mr.Cols(); v_index++) {
         double sum = 0;
         for (int m_index =0; m_index<mr.Rows(); m_index++) {
             int ind= m_index* mr.Cols() +v_index;
@@ -140,8 +140,8 @@ Vector operator*(const Matrix &ml, const Vector &vr) {
         throw Exception("DimensionMismatch", "Cannot multiply vector with matrix, because dimensions don't correspond"
                 ". Check if you use a column vector or multiply in correct order.");
     }
-    Vector res_v(vr.mNumRows);
-    for (int v_index=0; v_index < vr.mNumRows; v_index++) {
+    Vector res_v(ml.Rows());
+    for (int v_index=0; v_index < ml.Rows(); v_index++) {
         double sum = 0;
         for (int m_index =0; m_index<ml.Cols(); m_index++) {
             int ind= v_index* ml.Cols() +m_index;
@@ -153,7 +153,7 @@ Vector operator*(const Matrix &ml, const Vector &vr) {
 }
 
 bool Vector::isColumn() const {
-    return mNumCols <= 1;
+    return mNumRows > 1;
 }
 
 Vector asVector(const Matrix &matrix){
@@ -188,7 +188,7 @@ double dotProduct(const Vector &vl, const Vector &vr) {
     }
     catch( const Exception& error) {
         error.PrintDebug();
-        throw Exception("DimensionMismatch", "Cannot calculate the dotproduct of two vectors with different size.");
+        throw Exception("DimensionMismatch", "Cannot calculate the dot product of two vectors with different size.");
     }
     assert(vl.Size()== vr.Size());
     double dot_product = 0;
