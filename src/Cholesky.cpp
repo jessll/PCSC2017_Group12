@@ -1,6 +1,6 @@
 #include <cassert>
 #include <cmath>
-#include "Cholesky.h"
+#include "Cholesky.hpp"
 
 Vector Cholesky::Solve(const Matrix &A, const Vector &b) {
     assert(A.Cols() == A.Rows());

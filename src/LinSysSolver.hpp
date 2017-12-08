@@ -7,6 +7,7 @@
 #include "Vector.hpp"
 #include <string>
 
+/*! An abstract  class to define the interface for the linear system solver. */
 class LinSysSolver
 {
 public:

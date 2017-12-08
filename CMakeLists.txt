@@ -25,7 +25,9 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
 ############ Actual project part #########
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -Wshadow")
+# Source files for the library of this project
 add_subdirectory(src)
+# Demo to see how this library could be included in a project
 add_subdirectory(demo)
+# Test suite for this project
 add_subdirectory(Tests)
-#add_executable(PCSC2017_Group12 ${SOURCE_FILES})

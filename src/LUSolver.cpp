@@ -1,7 +1,7 @@
 #include <cmath>
 #include <cassert>
 #include <iostream>
-#include "LUSolver.h"
+#include "LUSolver.hpp"
 
 
 Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
@@ -31,7 +31,7 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
 
         // check for singularity
         if (0 == LU(Pivot,i)) {
-            cout << "matrix is singular" << endl;
+            std::cout << "matrix is singular" << std::endl;
 
         }
 

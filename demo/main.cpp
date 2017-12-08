@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Matrix.hpp"
 #include "Vector.hpp"
-#include "CGSolver.hpp";
+#include "CGSolver.hpp"
 
 int main(int argc, char* argv[])
 {
