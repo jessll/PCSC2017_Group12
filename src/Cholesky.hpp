@@ -8,6 +8,7 @@ class Cholesky:public DirectSolver{
 
 public:
     Cholesky();
+
     virtual Vector Solve(const Matrix& A, const Vector& b);
 };
 
