@@ -11,7 +11,7 @@ LUSolver::LUSolver()
 {}
 
 Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
-    if (A.Cols() != A.Rows() || b.Cols() != A.Rows()){
+    if (A.Cols() != A.Rows() || b.Rows() != A.Cols()){
         throw (Exception("Size","Matrix or Vector size error"));
     };
 

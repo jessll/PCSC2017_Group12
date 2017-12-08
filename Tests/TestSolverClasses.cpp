@@ -245,8 +245,8 @@ TEST(LUSolverTest, SmallExample) {
     Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_sol.dat"));
     // Check correction
     Vector calc_sol = solver.Solve(mat, vec);
-    EXPECT_DOUBLE_EQ(ref_sol(0), calc_sol(0));
-    EXPECT_DOUBLE_EQ(ref_sol(1), calc_sol(1));
+    EXPECT_NEAR(ref_sol(0), calc_sol(0),1e-04);
+    EXPECT_NEAR(ref_sol(1), calc_sol(1),1e-04);
 }
 
 TEST(LUSolverTest, BigExample) {
@@ -260,20 +260,21 @@ TEST(LUSolverTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_DOUBLE_EQ(ref_sol(iter), calc_sol(iter));
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter),1e-04);
     }
 }
 
 TEST(CholeskySolverTest, SmallExample) {
     // Set up data
     Cholesky solver;
+    
     Matrix mat = solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_mat.dat");
     Vector vec = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_vec.dat"));
     Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_sol.dat"));
     // Check correction
     Vector calc_sol = solver.Solve(mat, vec);
-    EXPECT_DOUBLE_EQ(ref_sol(0), calc_sol(0));
-    EXPECT_DOUBLE_EQ(ref_sol(1), calc_sol(1));
+    EXPECT_NEAR(ref_sol(0), calc_sol(0), 1e-04);
+    EXPECT_NEAR(ref_sol(1), calc_sol(1), 1e-04);
 }
 
 TEST(CholeskySolverTest, BigExample) {
@@ -286,6 +287,6 @@ TEST(CholeskySolverTest, BigExample) {
     // Standard tolerance
     Vector calc_sol = solver.Solve(mat, vec);
     for (int iter =0; iter < ref_sol.Size(); iter++ ) {
-        EXPECT_DOUBLE_EQ(ref_sol(iter), calc_sol(iter));
+        EXPECT_NEAR(ref_sol(iter), calc_sol(iter), 1e-04);
     }
 }
