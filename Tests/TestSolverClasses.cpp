@@ -8,7 +8,7 @@
 #include "JacSolver.hpp"
 #include "GSSolver.hpp"
 #include "LUSolver.hpp"
-#include "Cholesky.hpp"
+#include "CholeskySolver.hpp"
 
 std::string path_to_test_files = "../../Tests/FilesForTests/";
 TEST(LinSysSolverTest, ReadAndWriteMatrix) {
@@ -266,7 +266,7 @@ TEST(LUSolverTest, BigExample) {
 
 TEST(CholeskySolverTest, SmallExample) {
     // Set up data
-    Cholesky solver;
+    CholeskySolver solver;
     Matrix mat = solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_mat.dat");
     Vector vec = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_vec.dat"));
     Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_sol.dat"));
@@ -278,7 +278,7 @@ TEST(CholeskySolverTest, SmallExample) {
 
 TEST(CholeskySolverTest, BigExample) {
     // Set up data
-    Cholesky solver;
+    CholeskySolver solver;
     Matrix mat = solver.ReadMatrixFromFile(path_to_test_files+"Spd_Ex_size100_mat.dat");
     Vector vec = asVector(solver.ReadMatrixFromFile(path_to_test_files+"Spd_Ex_size100_vec.dat"));
     Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"Spd_Ex_size100_sol.dat"));
