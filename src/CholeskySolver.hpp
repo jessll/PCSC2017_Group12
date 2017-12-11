@@ -11,6 +11,4 @@ public:
     virtual Vector Solve(const Matrix& A, const Vector& b);
 };
 
-
-
 #endif //PCSC2017_GROUP12_CHOLESKY_H

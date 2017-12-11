@@ -5,6 +5,8 @@
 
 #include "Matrix.hpp"
 #include "Vector.hpp"
+
+#include <cmath>
 #include <string>
 
 /*! An abstract  class to define the interface for the linear system solver. */
@@ -12,6 +14,7 @@ class LinSysSolver
 {
 protected:
     int CheckSolveInput(const Matrix& A, const Vector& b);
+    int CheckSymmetry(const Matrix &A);
 public:
     // Solver method
     virtual Vector Solve(const Matrix& A, const Vector& b) = 0;

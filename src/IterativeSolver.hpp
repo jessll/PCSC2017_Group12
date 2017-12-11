@@ -24,6 +24,4 @@ public:
     double GetTol();
 };
 
-
-
 #endif //PCSC2017_GROUP12_ITERATIVESOLVER_H

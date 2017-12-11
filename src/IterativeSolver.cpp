@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <cmath>
 #include "IterativeSolver.hpp"
 #include "Exception.hpp"
 
