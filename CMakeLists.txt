@@ -3,7 +3,7 @@ project(PCSC2017_Group12)
 
 set(CMAKE_CXX_STANDARD 11)
 
-###################### Include google_test into this project ################
+###################### Include google_test into this project ################ Comment this part and the "Tests" subdirectory to compile project without tests.
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
         RESULT_VARIABLE result

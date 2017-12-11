@@ -14,8 +14,8 @@ Vector::Vector( const Vector &otherVector) : Matrix(otherVector) {}
 Vector::Vector(int size) : Matrix(size, 1) {}
 
 //Constructor for explicit row vector
-Vector::Vector(int size, bool isColumn) : Matrix(size,1) {
-    if(!isColumn){
+Vector::Vector(int size, bool is_column) : Matrix(size, 1) {
+    if (!is_column) {
         mNumCols=size;
         mNumRows= 1;
     }

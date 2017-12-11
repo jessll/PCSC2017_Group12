@@ -16,7 +16,7 @@ private:
 protected:
     int PrintConvergenceWarning(double res_norm);
 public:
-    explicit IterativeSolver(double tol= 1e-05, int max_iter= 100 );
+    explicit IterativeSolver(double tol = 1e-05, int max_iter = 1000);
     // Iterative solver specific methods
     int SetMaxIter(int max_iter);
     int GetMaxIter();

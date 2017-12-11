@@ -44,13 +44,13 @@ TEST(RichSolverTest, CheckConstructorsAndSetGet) {
     RichSolver solver;
     EXPECT_DOUBLE_EQ(solver.GetParameterW(), 0.5);
     EXPECT_DOUBLE_EQ(solver.GetTol(), 1e-05);
-    EXPECT_EQ(solver.GetMaxIter(),100);
+    EXPECT_EQ(solver.GetMaxIter(), 1000);
 
     // Constructor that only specifies w
     RichSolver solver_w(0.3);
     EXPECT_DOUBLE_EQ(solver_w.GetParameterW(), 0.3);
     EXPECT_DOUBLE_EQ(solver_w.GetTol(), 1e-05);
-    EXPECT_EQ(solver_w.GetMaxIter(),100);
+    EXPECT_EQ(solver_w.GetMaxIter(), 1000);
     // Constructor setting all parameters
     RichSolver solver_all(0.3, 1e-03, 20);
     EXPECT_DOUBLE_EQ(solver_all.GetParameterW(), 0.3);
