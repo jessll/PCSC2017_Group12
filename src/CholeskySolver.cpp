@@ -10,9 +10,21 @@ CholeskySolver::CholeskySolver()
 {}
 
 Vector CholeskySolver::Solve(const Matrix &A, const Vector &b) {
-    if (A.Cols() != A.Rows() || b.Rows() != A.Cols()){
-        throw (Exception("Size","Matrix or Vector size error"));
-    };
+    try {
+        this->CheckSolveInput(A, b);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception("InvalidInput", "Bad input into 'Solve' function.");
+    }
+
+    try{
+        CheckSymmetry(A);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception("InvalidInput", "Bad input into 'Solve' function.");
+    }
 
 
     int n = b.Size();
@@ -35,6 +47,15 @@ Vector CholeskySolver::Solve(const Matrix &A, const Vector &b) {
         for (int k = 0; k < j; k++) {
             sum1 += pow(L(j, k), 2);
         }
+        try{
+            if(AA(j, j) - sum1 < 0){
+                throw Exception("Matrix", "Input matrix is not symmetrical positive definition");
+            }
+        }
+        catch (const Exception& error) {
+            error.PrintDebug();
+            throw Exception("InvalidInput", "Bad input into 'Solve' function.");
+        }
         L(j, j) = sqrt(AA(j, j) - sum1);
 
 
@@ -53,20 +74,23 @@ Vector CholeskySolver::Solve(const Matrix &A, const Vector &b) {
 
     L(n-1,n-1) = sqrt(AA(n-1,n-1)-sum3);
 
-
     LT = L.transpose();
 
 
     //check whether matrix is positive definition
     S = L * LT;
     for (int i = 0; i < n*n; i++) {
-        if (S(i) - AA(i) > 1e-03) {
-            throw (Exception("Matrix", "Matrix is not positive definite"));
+        try {
+            if (std::abs(S(i) - AA(i)) > 1e-06) {
+                throw (Exception("Matrix", "Matrix is not positive definite"));
+            }
+        }
+        catch (const Exception& error) {
+            error.PrintDebug();
+            throw Exception("InvalidInput", "Bad input into 'Solve' function.");
         }
     }
-    for (int i = 0; i < n*n; i++){
-        if (S(i) - AA(i) > 1e-03){
-            throw (Exception("Matrix","Matrix is not positive definition"));}}
+
 
     //solve linear system by forward substitution method
 

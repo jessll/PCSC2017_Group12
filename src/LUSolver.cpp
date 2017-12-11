@@ -12,10 +12,13 @@ LUSolver::LUSolver()
 {}
 
 Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
-    if (A.Cols() != A.Rows() || b.Rows() != A.Cols()){
-        throw (Exception("Size","Matrix or Vector size error"));
-    };
-
+    try {
+        this->CheckSolveInput(A, b);
+    }
+    catch (const Exception& error) {
+        error.PrintDebug();
+        throw Exception("InvalidInput", "Bad input into 'Solve' function.");
+    }
 
     // Initialize data.
     int n = b.Size();
@@ -38,9 +41,14 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
                 Pivot = k;
 
         // check for singularity
+        try{
         if (0 == LU(Pivot,i)) {
             throw (Exception("Matrix","Matrix is singular"));
-
+            }
+        }
+        catch (const Exception& error) {
+            error.PrintDebug();
+            throw Exception("InvalidInput", "Bad input into 'Solve' function.");
         }
 
         // swap rows

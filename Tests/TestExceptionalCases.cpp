@@ -4,6 +4,8 @@
 #include <CGSolver.hpp>
 #include <JacSolver.hpp>
 #include <GSSolver.hpp>
+#include "LUSolver.hpp"
+#include "CholeskySolver.hpp"
 #include "gtest/gtest.h"
 
 
@@ -222,5 +224,38 @@ TEST(CGSolverTest, InvalidPrecond) {
     Matrix mat_bad_vals(3, 3);
     EXPECT_THROW(solver.CreateDiagPreconditioner(mat_bad_vals), Exception);
 }
+
+TEST(LUSolverTest, sigularcheck) {
+    LUSolver solver;
+    Vector test_vec(3);
+    test_vec(0) = 3;
+    Matrix test_mat(3, 3);
+    for (int index = 0; index < 3; index++) {
+        test_mat(index, index) = 1;
+    }
+    // Valid
+    EXPECT_NO_THROW(solver.Solve(test_mat, test_vec));
+    // Invalid
+    test_mat(0, 0) = 0;
+    EXPECT_THROW(solver.Solve(test_mat, test_vec), Exception);
+}
+
+TEST(CholeskySolverTest, SPDcheck) {
+    CholeskySolver solver;
+    Vector test_vec(3);
+    test_vec(0) = 3;
+    Matrix test_mat(3, 3);
+    for (int index = 0; index < 3; index++) {
+        test_mat(index, index) = 1;
+    }
+    // Valid SPD
+    EXPECT_NO_THROW(solver.Solve(test_mat, test_vec));
+    // Invalid SPD
+    test_mat(0, 0) = 0;
+    test_mat(0, 2) = 4;
+    EXPECT_THROW(solver.Solve(test_mat, test_vec), Exception);
+}
+
+
 
 

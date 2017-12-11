@@ -1,5 +1,3 @@
-
-
 #include "CGSolver.hpp"
 #include "Exception.hpp"
 #include <cmath>
@@ -109,22 +107,6 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b, const Matrix &precond) 
 }
 
 CGSolver::CGSolver(double tol, int max_iter) : IterativeSolver(tol, max_iter) {}
-
-int CGSolver::CheckSymmetry(const Matrix &A) {
-    if (A.Rows() != A.Cols()) {
-        throw Exception("NonSquare", "Input matrix is not square and thus not symmetric.");
-    }
-    // In this part of the code, A is clearly square.
-    int size = A.Cols();
-    for (int row = 0; row < size; row++) {
-        for (int col = 0; col < row; col++) {
-            if (std::abs(A.at(row, col) - A.at(col, row)) > 1e-14) {
-                throw Exception("NonSymmetric", "Input matrix is not symmetric, which is a necessary requirement.");
-            }
-        }
-    }
-    return 0;
-}
 
 Matrix CGSolver::CreateDiagPreconditioner(const Matrix &A) {
     if (A.Rows() != A.Cols()) {

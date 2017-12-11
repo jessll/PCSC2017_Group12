@@ -4,6 +4,7 @@
 #include "Matrix.hpp"
 #include "Vector.hpp"
 #include "CGSolver.hpp"
+#include "CholeskySolver.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -12,6 +13,7 @@ int main(int argc, char* argv[])
     int demo_size = 5;
     Vector demo_vector(demo_size);
     Matrix demo_matrix(demo_size, demo_size);
+
     // Fill variables with values. The matrix will be an identity, the vector contains values from 0 to demo_size.
     for (int index = 0; index< demo_size; index ++ ) {
         demo_vector(index) = index;

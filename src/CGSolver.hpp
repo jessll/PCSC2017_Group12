@@ -8,8 +8,7 @@
 #include "IterativeSolver.hpp"
 class CGSolver: public IterativeSolver
 {
-private:
-    int CheckSymmetry(const Matrix &A);
+
 public:
     explicit CGSolver(double tol= 1e-05, int max_iter= 1000 );
     Vector Solve(const Matrix& A, const Vector& b) override;

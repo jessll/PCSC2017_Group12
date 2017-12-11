@@ -2,6 +2,7 @@
 #include "LinSysSolver.hpp"
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include "Exception.hpp"
 
 Matrix LinSysSolver::ReadMatrixFromFile(std::string full_file_name){
@@ -60,6 +61,22 @@ int LinSysSolver::CheckSolveInput(const Matrix &A, const Vector &b) {
     }
     if(b.Rows() != A.Cols()) {
         throw Exception("LinSysSolver", "Dimension mismatch for linear system Ax=b.");
+    }
+    return 0;
+}
+
+int LinSysSolver::CheckSymmetry(const Matrix &A) {
+    if (A.Rows() != A.Cols()) {
+        throw Exception("NonSquare", "Input matrix is not square and thus not symmetric.");
+    }
+    // In this part of the code, A is clearly square.
+    int size = A.Cols();
+    for (int row = 0; row < size; row++) {
+        for (int col = 0; col < row; col++) {
+            if (std::abs(A.at(row, col) - A.at(col, row)) > 1e-14) {
+                throw Exception("NonSymmetric", "Input matrix is not symmetric, which is a necessary requirement.");
+            }
+        }
     }
     return 0;
 }
