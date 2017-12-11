@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     CGSolver solver;
     //** Other iterative solvers are for example: JacSolver, GSSolver, RichSolver **//
 
-    // Create a direct solver.
+    // Create a direct solver.(You could also use CholeskySolver)
     LUSolver solver1;
 
     // Iterative Solve the system and catch debug message if there is an error.
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
     // Create iterative solver
     CGSolver solver2;
 
-    // Create direct solver
+    // Create direct solver (you could also use CholeskySolver)
     LUSolver solver3;
 
     // Read matrix and vector from demo file.
