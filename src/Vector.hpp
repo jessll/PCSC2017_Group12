@@ -1,6 +1,9 @@
 #ifndef VECTORHEADERDEF
 #define VECTORHEADERDEF
 
+/**
+* The vector class provides a data structure for the "special" 1D matrices that can be written as vectos.
+*/
 
 #include "Matrix.hpp"
 class Vector: public Matrix
