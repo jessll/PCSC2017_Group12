@@ -1,11 +1,9 @@
 
-
 #ifndef PCSC2017_GROUP12_LINSYSSOLVER_H
 #define PCSC2017_GROUP12_LINSYSSOLVER_H
 
 #include "Matrix.hpp"
 #include "Vector.hpp"
-
 #include <cmath>
 #include <string>
 
@@ -13,6 +11,7 @@
 class LinSysSolver
 {
 protected:
+    /// Check size of input
     int CheckSolveInput(const Matrix& A, const Vector& b);
     int CheckSymmetry(const Matrix &A);
 public:
