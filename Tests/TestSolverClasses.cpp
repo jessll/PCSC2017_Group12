@@ -318,8 +318,8 @@ TEST(LUSolverTest, SmallExample) {
     Vector ref_sol = asVector(solver.ReadMatrixFromFile(path_to_test_files+"small_Ex_sol.dat"));
     // Check correction
     Vector calc_sol = solver.Solve(mat, vec);
-    EXPECT_DOUBLE_EQ(ref_sol(0), calc_sol(0));
-    EXPECT_DOUBLE_EQ(ref_sol(1), calc_sol(1));
+    EXPECT_NEAR(ref_sol(0), calc_sol(0),1e-06);
+    EXPECT_NEAR(ref_sol(1), calc_sol(1),1e-06);
 }
 
 TEST(LUSolverTest, BigExample) {

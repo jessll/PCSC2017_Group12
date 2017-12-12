@@ -4,12 +4,17 @@
 #include "Matrix.hpp"
 #include "Vector.hpp"
 #include "CGSolver.hpp"
+#include "GSSolver.hpp"
+#include "JacSolver.hpp"
+#include "RichSolver.hpp"
 #include "LUSolver.hpp"
 #include "CholeskySolver.hpp"
 
 int main(int argc, char* argv[])
 {
-    /********* Example use 1 - manual creation******/
+
+
+    /********* Example use 1 - manual creation for iterative solver******/
     // Create two demo variables
     int demo_size = 5;
     Vector demo_vector(demo_size);
@@ -25,9 +30,9 @@ int main(int argc, char* argv[])
     // Create a iterative solver.
     CGSolver solver;
     //** Other iterative solvers are for example: JacSolver, GSSolver, RichSolver **//
-
-    // Create a direct solver.(You could also use CholeskySolver)
-    LUSolver solver1;
+    //JacSolver solver;
+    //GSSolver solver;
+    //RichSolver solver;
 
     // Iterative Solve the system and catch debug message if there is an error.
     Vector demo_result(5);
@@ -41,10 +46,22 @@ int main(int argc, char* argv[])
     // Print results to console
     std::cout.setf(std::ios::scientific);
     std::cout.setf(std::ios::showpos);
-    std::cout << "Result vector of demo with CG solver:\n";
+    std::cout << "Result vector of demo with iterative solver:\n";
     for (int index = 0; index< demo_size; index ++ ) {
         std::cout << demo_result.at(index) << "\n";
     }
+    // Write the result to file (optional)
+    solver.WriteMatrixToFile("../../demo/demo_vec.dat", demo_result);
+
+
+
+
+
+
+    /********* Example use 2 - manual creation for direct solver******/
+    // Create a direct solver.(You could also use CholeskySolver)
+    LUSolver solver1;
+    //CholeskySolver solver1;
 
     //Direct solve the system and catch debug message if there is an error.
     Vector demo_result_1(5);
@@ -63,51 +80,69 @@ int main(int argc, char* argv[])
         std::cout << demo_result_1.at(index) << "\n";
     }
     // Write the result to file (optional)
-    solver.WriteMatrixToFile("../../demo/demo_vec.dat", demo_result);
     solver1.WriteMatrixToFile("../../demo/demo_vec_lu.dat", demo_result_1);
 
 
-    /********* Example use 2 - load values of a bigger system ******/
+
+
+
+
+    /********* Example use 3 - load values of a bigger system for iterative solver ******/
 
     // Create a solver first (or use one that you have already created)
     // Create iterative solver
     CGSolver solver2;
-
-    // Create direct solver (you could also use CholeskySolver)
-    LUSolver solver3;
+    //** Other iterative solvers are for example: JacSolver, GSSolver, RichSolver **//
+    //JacSolver solver2;
+    //GSSolver solver2;
+    //RichSolver solver2;
 
     // Read matrix and vector from demo file.
     Matrix mat_big = solver2.ReadMatrixFromFile("../../demo/Demo10_mat.dat");
     Vector vector_big = asVector(solver2.ReadMatrixFromFile("../../demo/Demo10_vec.dat"));
 
-    Matrix mat_big1 = solver3.ReadMatrixFromFile("../../demo/Demo10_mat.dat");
-    Vector vector_big1 = asVector(solver3.ReadMatrixFromFile("../../demo/Demo10_vec.dat"));
-
     // Create a simple preconditioner (optional)
     Matrix precond = solver2.CreateDiagPreconditioner(mat_big);
-
-
     // Set parameters of the solver.
     solver2.SetTol(1e-4);
     solver2.SetMaxIter(100);
     // Solve the system using iterative method (and don't catch any errors, this will give fewer information if something goes wrong!)
     Vector result = solver2.Solve(mat_big, vector_big, precond);
-
-    //Solve the system using direct method (and don't catch any errors, this will give fewer information if something goes wrong!)
-    Vector result1 = solver3.Solve(mat_big1, vector_big1);
+    //Vector result = solver2.Solve(mat_big, vector_big); //For other iterative solvers, we don't need third argument
 
     // Print the result to the terminal:
-    std::cout << "Result vector of a slightly bigger system with CGSolver :\n";
+    std::cout << "Result vector of a slightly bigger system with Iterative solver :\n";
     for (int index = 0; index < result.Size(); index++) {
         std::cout << result.at(index) << "\n";
     }
 
+
+
+
+
+
+    /********* Example use 4 - load values of a bigger system for direct solver ******/
+    // Create direct solver (you could also use CholeskySolver)
+    LUSolver solver3;
+    //CholeskySolver solver3;
+
+    // Read matrix and vector from demo file.
+    Matrix mat_big1 = solver3.ReadMatrixFromFile("../../demo/Demo10_mat.dat");
+    Vector vector_big1 = asVector(solver3.ReadMatrixFromFile("../../demo/Demo10_vec.dat"));
+
+    //Solve the system using direct method
+    Vector result1 = solver3.Solve(mat_big1, vector_big1);
+    // Print the result to the terminal:
     std::cout<< "Result vector of a slightly bigger system with LUsolver : \n";
     for (int index = 0; index < result1.Size(); index++){
         std::cout << result1.at(index) << "\n";
     }
 
+
+
     //** If desired, you can compare the output of this vector with a solution pre-computed with MATLAB: Demo10_sol
     // .dat **/
+
+
     return 0;
 }

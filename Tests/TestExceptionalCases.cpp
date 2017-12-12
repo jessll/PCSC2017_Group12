@@ -225,6 +225,20 @@ TEST(CGSolverTest, InvalidPrecond) {
     EXPECT_THROW(solver.CreateDiagPreconditioner(mat_bad_vals), Exception);
 }
 
+TEST(LUSolverTest, BadLinSys) {
+    LUSolver solver;
+    Vector test_vec(2);
+    Matrix test_mat(3, 3);
+    for (int index = 0; index < 3; index++) {
+        test_mat(index, index) = 1;
+    }
+    Matrix test_mat_2(2, 3);
+    // Non-matching dimensions
+    EXPECT_THROW(solver.Solve(test_mat, test_vec), Exception);
+    // Nonsquare matrix
+    EXPECT_THROW(solver.Solve(test_mat_2, test_vec), Exception);
+}
+
 TEST(LUSolverTest, sigularcheck) {
     LUSolver solver;
     Vector test_vec(3);
@@ -239,6 +253,22 @@ TEST(LUSolverTest, sigularcheck) {
     test_mat(0, 0) = 0;
     EXPECT_THROW(solver.Solve(test_mat, test_vec), Exception);
 }
+
+
+TEST(CholeskySolverTest, BadLinSys) {
+    CholeskySolver solver;
+    Vector test_vec(2);
+    Matrix test_mat(3, 3);
+    for (int index = 0; index < 3; index++) {
+        test_mat(index, index) = 1;
+    }
+    Matrix test_mat_2(2, 3);
+    // Non-matching dimensions
+    EXPECT_THROW(solver.Solve(test_mat, test_vec), Exception);
+    // Nonsquare matrix
+    EXPECT_THROW(solver.Solve(test_mat_2, test_vec), Exception);
+}
+
 
 TEST(CholeskySolverTest, SPDcheck) {
     CholeskySolver solver;
