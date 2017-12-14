@@ -1,7 +1,7 @@
 %% MATLAB script to create examples of symmetric positive definite (spd) 
 % linear systems of specified size.
 % Specify size
-size = 10;
+size =1000;
 
 % Specify name of example 
 ex_name = sprintf('Demo%i_', size);

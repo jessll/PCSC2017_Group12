@@ -5,7 +5,8 @@
 #include "DirectSolver.hpp"
 
 /**
- * The CholeskySolver class derived from class DirectSolver, providing Cholesky decomposition method for linear system.
+ * The CholeskySolver class derived from class DirectSolver, providing the Cholesky decomposition method for linear
+ * system.
  */
 class CholeskySolver:public DirectSolver{
 
