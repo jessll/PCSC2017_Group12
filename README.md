@@ -24,7 +24,7 @@ There is a "Demo" class that shows 4 worked examples, so have a look at "Demo.cp
 to see the results. We provided comments
  in 
 the 
-source code to document the program flow, but you can always check out the Doxygen for further into. You can either 
+source code to document the program flow, but you can always check out the Doxygen for further info. You can either 
 build on 
 these examples
  or have a look at the demo cMake 
@@ -41,7 +41,7 @@ iterative solvers.
 In order to learn more about which solvers are appropriate and the whole list of features, check out our "official" 
 project report located in this repository.
 
-**Tests*
+**Tests**
 
 If you want to convince yourself, that our code is doing what it should, simply run the tests we included by running 
 "./BasicTests" from the "Test" folder in the build and see them pass.
