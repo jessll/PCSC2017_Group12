@@ -9,7 +9,7 @@ add_executable(BasicTests TestBaseClasses.cpp TestSolverClasses.cpp  TestExcepti
 # Link to lin_sys_libary we created and g_test
 target_link_libraries(BasicTests  gtest_main lin_sys_lib)
 
-# Is this line necessary?
+
 add_test(NAME BasicTests COMMAND runTests)
 
 
