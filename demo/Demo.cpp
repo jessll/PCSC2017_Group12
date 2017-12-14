@@ -35,7 +35,8 @@ int Demo::example1() {
 
     // Create an iterative solver.
     CGSolver it_solver;
-    //** Other iterative solvers are for example: JacSolver, GSSolver, RichSolver **//
+    //** Other iterative solvers are for example: JacSolver, GSSolver, RichSolver, you can simply replace CGsolver
+    // above to use another solver since they share an interface. **//
 
     //** Optional: Change tolerance and number of maximum iteration from their default values.**//
     it_solver.SetTol(1e-06);
@@ -124,7 +125,7 @@ int Demo::example2() {
 }
 
 int Demo::example3() {
-    /********* Example use 3 - Demonstrates  CG and preconditioned CG in comparison do direct solvers******/
+    /********* Example use 3 - Demonstrates  CG and preconditioned CG in comparison to direct solvers******/
 
     std::cout << "Demo: Example 3, solving a 1000x1000 linear system: \n";
 
@@ -162,8 +163,6 @@ int Demo::example3() {
 
 
     std::cout << "Solving with preconditioned CG Solver: \n";
-
-
     // Create the preconditioner.
     Matrix precond = it_solver.CreateDiagPreconditioner(mat);
     // Solve with preconditioner.
