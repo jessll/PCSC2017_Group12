@@ -11,6 +11,7 @@ class LUSolver: public DirectSolver{
 public:
     /// Constructor;
     LUSolver();
+
     /// Virtual method Solve for implementing LU Decomposition of the linear system
     virtual Vector Solve(const Matrix& A, const Vector& b);
 };
