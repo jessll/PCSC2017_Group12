@@ -1,6 +1,5 @@
-//
-// Created by mariella on 14.12.17.
-//
+
+// Simply include necessary headers of the library as you need them.
 
 #include <Vector.hpp>
 #include <CGSolver.hpp>
