@@ -25,6 +25,10 @@ public:
 
     /// Utility function to write matrix data to a txt style file, specified in path.
     int WriteMatrixToFile(std::string full_file_name,Matrix& mat);
+
+    /// Utility function to read matrix from keyboard
+    Matrix ReadMatrixFromKeyboard();
+   
 };
 
 #endif //PCSC2017_GROUP12_LINSYSSOLVER_H

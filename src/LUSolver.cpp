@@ -20,18 +20,24 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
         throw Exception("InvalidInput", "Bad input into 'Solve' function.");
     }
 
-    // Initialize data.
+    // The size of matrix
     int n = b.Size();
+    // initialize vector for storing b with permutation
     Vector x(n);
+    // initialize vector for solution
     Vector t(n);
+    // initialize a copy of vector b
     Vector bb(b);
+    // initialize matrix for storing the decomposition format of A
     Matrix LU(A);
+    // initialize vector for storing permutation
     Vector P(n);
+
 
     for (int i = 0; i < n; i++)
         P(i) = i;
 
-    // loop over diagonal pivots
+    //operation of diagonal pivots
     for (int i = 0; i < n - 1; i++) {
 
         // find the largest pivot
@@ -41,6 +47,7 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
                 Pivot = k;
 
         // check for singularity
+        // if the matrix is singular, throw exception
         try{
         if (0 == LU(Pivot,i)) {
             throw (Exception("Matrix","Matrix is singular"));
@@ -51,7 +58,7 @@ Vector LUSolver::Solve(const Matrix &A, const Vector &b) {
             throw Exception("InvalidInput", "Bad input into 'Solve' function.");
         }
 
-        // swap rows
+        // swap rows with pivot
         if (Pivot != i) {
             int temp = P(Pivot);
             P(Pivot) = P(i);

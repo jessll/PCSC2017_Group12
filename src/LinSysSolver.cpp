@@ -28,6 +28,27 @@ Matrix LinSysSolver::ReadMatrixFromFile(std::string full_file_name){
     }
 }
 
+Matrix LinSysSolver::ReadMatrixFromKeyboard(){
+    int rows;
+    int cols;
+    std::cout << "Please enter the row size:\n";
+    std::cin >> rows;
+    std::cout << "Please enter the column size:\n";
+    std::cin >> cols;
+    Matrix new_mat(rows,cols);
+    std::cout << "Please enter the element by column:\n";
+    for (int row = 0; row < rows; row++){
+        for (int col =0; col <cols; col++){
+            double val;
+            std::cin >> val;
+            new_mat(row,col) = val;
+        }
+    }
+    return new_mat;
+};
+
+
+
 int LinSysSolver::WriteMatrixToFile(std::string full_file_name, Matrix& mat){
     std::ofstream file(full_file_name);
     int num_rows = mat.Rows();

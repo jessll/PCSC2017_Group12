@@ -26,7 +26,6 @@ Vector CGSolver::Solve(const Matrix &A, const Vector &b) {
     // Initialize data.
     Vector x(b.Size());
     Vector residual = b-A*x;
-
     Vector p(residual);
 
     for(int iter= 0; iter< this->GetMaxIter(); iter++){

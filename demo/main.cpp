@@ -140,6 +140,37 @@ int main(int argc, char* argv[])
 
 
 
+
+
+
+
+    /******** Example use 5 - input matrix A and vector b from keyboard *********/
+    // Solve by direct or iterative method
+    LUSolver solver4;
+    CGSolver solver5;
+    // Read matrix and vector from keyboard
+    std::cout<< "Input matrix first : \n";
+    Matrix mat_input = solver4.ReadMatrixFromKeyboard();
+    std::cout<<"Input vector then: \n";
+    Vector vec_input = asVector(solver4.ReadMatrixFromKeyboard());
+
+
+    // Solve the system
+    Vector result2 = solver4.Solve(mat_input,vec_input);
+    Vector result3 = solver5.Solve(mat_input,vec_input);
+
+    // Print the result to the terminal:
+    std::cout<< "Result vector of a slightly bigger system with LUSolver : \n";
+    for (int index = 0; index < result2.Size(); index++){
+        std::cout << result2.at(index) << "\n";
+    }
+
+    // Print the result to the terminal:
+    std::cout<< "Result vector of a slightly bigger system with CGSolver : \n";
+    for (int index = 0; index < result3.Size(); index++){
+        std::cout << result3.at(index) << "\n";
+    }
+
     //** If desired, you can compare the output of this vector with a solution pre-computed with MATLAB: Demo10_sol
     // .dat **/
 
