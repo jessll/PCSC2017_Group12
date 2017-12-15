@@ -9,3 +9,5 @@ cmake_install.cmake
 .cproject
 cmake-build-debug
 .directory
+Documentation/html/
+Documentation/latex/
