@@ -53,8 +53,10 @@ $ make
 
 ## Getting Started
 
-To get started, clone this repository from github. Then, go to the folder "Documentation" and run the command:  
+To get started, clone this repository from github. Then, go to the folder "Documentation" and run the command:
+```  
 $ doxygen config_file  
+```
 This will create a helpful documentation of the project.
 
 In order to see how this library works, check out the "demo folder", where we provide examples of how to use the code.
@@ -98,6 +100,25 @@ The output may report a "segmentation fault", when running the tests. This has t
 cases and does NOT mean the tests have failed. As long as you can see the line  
 [  PASSED  ] XX tests  
 all tests have passed as expected.
+
+## List of Features
+The main library files in folder "src". The main contents as follows:
+⋅⋅* Datatype
+Markup:
+* The datatypes are defined as classes(`Matrix.hpp`, `Vector.hpp`)
+
+..* Solve Methods
+Markup:
+* Base class `LinSysSolver.hpp` defines:
+	* Solve method
+	* Read/Write method: read from file/keyboard, write to file
+	* invalidation check of input
+
+* Derived class `IterativeSolver.hpp`, `DirectSolver.hpp`
+	* Iterative methods including `CGSolver.hpp``GSSolver.hpp``JacSolver.hpp``RichSolver.hpp` derived from `IterativdSolver.hpp`
+		* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload Solve method.
+	* Direct methods including `LUSolver.hpp` and `CholeskySolver.hpp`.
+
 
 
 
