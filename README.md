@@ -18,8 +18,11 @@ abstract classes.
 ## Compiling
 (Only tested on Linux and Mac OS X, no 
 guarantees for Windows.)  
+Note:  
+ You will need an internet connection for building, since googletest is included automatically at compile time.  
 Compiling is done via CMake files. Everything was set up with CLion, so when using this IDE, no other adjustments 
-should be needed.   
+should be needed.  
+
 **Compilation in terminal**
 - Go to the repository folder "PCSC2017_Group12" 
 - Execute the following commands in the terminal:   
