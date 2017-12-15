@@ -14,14 +14,42 @@ LinSysSolver
 and its derived classes DirectSolver and IterativeSolver. The specific numerical solvers are derived from these two
 abstract classes.
 
+
+## Compiling
+(Only tested on Linux and Mac OS X, no 
+guarantees for Windows.)  
+Compiling is done via cMake files. Everything was set up with CLion, so when using this IDE, no other adjustments 
+should be needed.   
+**Compilation in terminal**
+- Go to the repository folder "PCSC2017_Group12" 
+- Execute the following commands in the terminal:   
+$ mkdir build  
+$ cd build  
+$ cmake ..  
+$ make
+- In the new "build" folder, you should now see two folders "demo" and "Test", which contain the executables. You can
+ run them like this:   
+ $ cd demo  
+ $ ./demo  
+ **or**  
+ $ cd Tests  
+ $ ./BasicTests
+  
+  Note:  
+  In principle, you can compile the _Linear Systems_ library wherever you want, but the demo and the tests use some 
+  files located in this project. So if you do not compile and run in the way described above, you will probably get
+   an  Exception, because the executables cannot find the files.
+  If you want to write your own executables ( or change the paths in the Test suite), feel free to compile the library 
+  wherever you want.
+
 ## Getting Started
 
-To get started, clone this repository and run "doxygen config_file" from your terminal to create a helpful 
+To get started, clone this repository and run the doxywizard from your terminal to create a helpful 
 documentation.
 
 In order to see how this library works, check out the "demo folder", where we provide examples of how to use the code.
 There is a "Demo" class that shows 4 worked examples, so have a look at "Demo.cpp" and run "./demo" from the folder 
-to see the results. We provided comments
+to see the results (see above for how to compile). We provided comments
  in 
 the 
 source code to document the program flow, but you can always check out the Doxygen for further info. You can either 
@@ -55,9 +83,6 @@ iterations is positive, the number of rows is larger than 0, the matrix is symme
 and throws Exceptions for 
 invalid access, dimension mismatch in linear system etc.
 
-## Compiling
 
-Compiling is done via cMake files no other adjustments should be needed. (Only tested on Linux and Mac OS X, no 
-guarantees for Windows.)
 
 

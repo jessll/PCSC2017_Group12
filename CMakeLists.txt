@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.0)
 project(PCSC2017_Group12)
 
 set(CMAKE_CXX_STANDARD 11)
-
+SET(CMAKE_BUILD_TYPE Release)
 ###################### Include google_test into this project ################ Comment this part and the "Tests" subdirectory to compile project without tests.
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -23,8 +23,7 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
         EXCLUDE_FROM_ALL)
 
 ############ Actual project part #########
-
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -Wshadow")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -Wshadow")
 # Source files for the library of this project
 add_subdirectory(src)
 # Demo to see how this library could be included in a project
