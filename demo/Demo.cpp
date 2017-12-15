@@ -215,13 +215,5 @@ int Demo::example4() {
     auto multiplication = transpose * vector;
     std::cout << "Inner product with matrix product is " << multiplication(0) << ".\n";
 
-    std::cout << "Entering matrices and vectors from the keyboard.\n";  // Not recommended use of this library.
-    // Read matrix and vector from keyboard
-    std::cout << "Input matrix first : \n";
-    Matrix mat_input = solver.ReadMatrixFromKeyboard();
-    std::cout << "Input vector then: \n";
-    Vector vec_input = asVector(solver.ReadMatrixFromKeyboard());
-
-
     return 0;
 }
