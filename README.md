@@ -103,21 +103,21 @@ all tests have passed as expected.
 
 ## List of Features
 The main library files in folder "src". The main contents as follows:
-⋅⋅* Datatype
-Markup:
-* The datatypes are defined as classes(`Matrix.hpp`, `Vector.hpp`)
+* Datatype
 
-..* Solve Methods
-Markup:
-* Base class `LinSysSolver.hpp` defines:
-	* Solve method
-	* Read/Write method: read from file/keyboard, write to file
-	* invalidation check of input
+	* The datatypes are defined as classes: `Matrix.hpp`, `Vector.hpp`
 
-* Derived class `IterativeSolver.hpp`, `DirectSolver.hpp`
-	* Iterative methods including `CGSolver.hpp` `GSSolver.hpp` `JacSolver.hpp` `RichSolver.hpp` derived from `IterativdSolver.hp`
-		* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload Solve method.
-	* Direct methods including `LUSolver.hpp` and `CholeskySolver.hpp`.
+* Solve Methods
+
+	* Base class `LinSysSolver.hpp` defines:
+		* Solve method
+		* Read/Write method: read from file/keyboard, write to file
+		* invalidation check of input
+
+	* Derived class `IterativeSolver.hpp`, `DirectSolver.hpp`
+		* Iterative methods including `CGSolver.hpp` `GSSolver.hpp` `JacSolver.hpp` `RichSolver.hpp` derived from `IterativdSolver.hp`
+			* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload Solve method.
+		* Direct methods including `LUSolver.hpp` and `CholeskySolver.hpp`.
 
 
 
