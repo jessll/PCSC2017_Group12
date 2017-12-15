@@ -115,7 +115,7 @@ Markup:
 	* invalidation check of input
 
 * Derived class `IterativeSolver.hpp`, `DirectSolver.hpp`
-	* Iterative methods including `CGSolver.hpp``GSSolver.hpp``JacSolver.hpp``RichSolver.hpp` derived from `IterativdSolver.hpp`
+	* Iterative methods including `CGSolver.hpp` `GSSolver.hpp` `JacSolver.hpp` `RichSolver.hpp` derived from `IterativdSolver.hp`
 		* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload Solve method.
 	* Direct methods including `LUSolver.hpp` and `CholeskySolver.hpp`.
 
