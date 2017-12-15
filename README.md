@@ -44,8 +44,9 @@ $ make
 
 ## Getting Started
 
-To get started, clone this repository and run the doxywizard from your terminal to create a helpful 
-documentation.
+To get started, clone this repository from github. Then, go to the folder "Documentation" and run the command:  
+$ doxygen config_file  
+This will create a helpful documentation of the project.
 
 In order to see how this library works, check out the "demo folder", where we provide examples of how to use the code.
 There is a "Demo" class that shows 4 worked examples, so have a look at "Demo.cpp" and run "./demo" from the folder 
