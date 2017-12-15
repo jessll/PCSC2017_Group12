@@ -100,7 +100,7 @@ cases and does NOT mean the tests have failed. As long as you can see the line
 all tests have passed as expected.
 
 ## List of Features
-The main library files in folder "src". The main contents as follows:
+The main library files are in folder "src". The main contents  are as follows:
 * Datatype
 
 	* The datatypes are defined as classes: `Matrix.hpp`, `Vector.hpp`
@@ -112,10 +112,13 @@ The main library files in folder "src". The main contents as follows:
 		* Read/Write method: read from file/keyboard, write to file
 		* validation check of input
 
-	* Derived class `IterativeSolver.hpp`, `DirectSolver.hpp`
-		* Iterative methods including `CGSolver.hpp` `GSSolver.hpp` `JacSolver.hpp` `RichSolver.hpp` derived from `IterativdSolver.hp`
-			* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload Solve method.
-		* Direct methods including `LUSolver.hpp` and `CholeskySolver.hpp`.
+	* Derived classes `IterativeSolver.hpp`, `DirectSolver.hpp`
+		* Iterative methods including Conjugate Gradient(`CGSolver.hpp`),  Gauss-Seidel method (`GSSolver.hpp`), 
+		Jacobi method `JacSolver.hpp`, Richardson iteration (`RichSolver
+		.hpp`) derived from `IterativeSolver.hpp`
+		* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload Solve of solve method
+		 with additional parameter of a preconditioner Matrix.
+		* Direct methods including LU factorization (`LUSolver.hpp`) and Cholesky factorization (`CholeskySolver.hpp`).
 
 
 
