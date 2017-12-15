@@ -18,7 +18,7 @@ abstract classes.
 ## Compiling
 (Only tested on Linux and Mac OS X, no 
 guarantees for Windows.)  
-Compiling is done via cMake files. Everything was set up with CLion, so when using this IDE, no other adjustments 
+Compiling is done via CMake files. Everything was set up with CLion, so when using this IDE, no other adjustments 
 should be needed.   
 **Compilation in terminal**
 - Go to the repository folder "PCSC2017_Group12" 
@@ -55,7 +55,7 @@ the
 source code to document the program flow, but you can always check out the Doxygen for further info. You can either 
 build on 
 these examples
- or have a look at the demo cMake 
+ or have a look at the demo CMake 
 file to see how this library could be included in other projects.
 
 
@@ -76,12 +76,18 @@ If you want to convince yourself, that our code is doing what it should, simply 
 
 We base our test suite on the  googletest library. There are three parts: 
 - The "Base classes" test, where we check that all functionality of vectors and matrices work as expected.
-- The "Solver classes" test , where we check the creation and use of solvers, as well as reading and writing to 
+- The "Solver classes" test, where we check the creation and use of solvers, as well as reading and writing to 
 file.
 - The "Exceptional cases", where we make sure that our library does check its inputs (e.g. the maximum number of 
 iterations is positive, the number of rows is larger than 0, the matrix is symmetric if required by the solver) 
 and throws Exceptions for 
 invalid access, dimension mismatch in linear system etc.
+
+Note:  
+The output may report a "segmentation fault", when running the tests. This has to do with testing the exceptional
+cases and does NOT mean the tests have failed. As long as you can see the line  
+[  PASSED  ] XX tests  
+all tests have passed as expected.
 
 
 
