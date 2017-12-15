@@ -24,6 +24,7 @@ TEST(LinSysSolverTest, ReadAndWriteMatrix) {
 }
 
 
+
 TEST(LinSysSolverTest, ReadAndWriteVector) {
     double test_number = 3.1415;
     CGSolver solver;
@@ -37,6 +38,7 @@ TEST(LinSysSolverTest, ReadAndWriteVector) {
     EXPECT_EQ(read_vec.Size(), 3);
     EXPECT_DOUBLE_EQ(read_vec(2),test_number);
 }
+
 
 
 TEST(RichSolverTest, CheckConstructorsAndSetGet) {

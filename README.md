@@ -23,17 +23,23 @@ should be needed.
 **Compilation in terminal**
 - Go to the repository folder "PCSC2017_Group12" 
 - Execute the following commands in the terminal:   
+```
 $ mkdir build  
 $ cd build  
 $ cmake ..  
 $ make
+```
 - In the new "build" folder, you should now see two folders "demo" and "Test", which contain the executables. You can
- run them like this:   
+ run them like this:  
+ ``` 
  $ cd demo  
  $ ./demo  
+ ```
  **or**  
+ ```
  $ cd Tests  
  $ ./BasicTests
+ ```
   
   Note:  
   In principle, you can compile the _Linear Systems_ library wherever you want, but the demo and the tests use some 
