@@ -84,16 +84,14 @@ project report located in this repository.
 **Tests**
 
 If you want to convince yourself, that our code is doing what it should, simply run the tests we included by running 
-"./BasicTests" from the "Test" folder in the build and see them pass.
+`./BasicTests` from the "Test" folder in the build and see them pass.
 
 We base our test suite on the  googletest library. There are three parts: 
-- The "Base classes" test, where we check that all functionality of vectors and matrices work as expected.
-- The "Solver classes" test, where we check the creation and use of solvers, as well as reading and writing to 
+- The "Base classes" test: `TestBaseClasses.cpp`, where we check that all functionality of vectors and matrices work as expected.
+- The "Solver classes" test: `TestSolverClasses.cpp`, where we check the creation and use of solvers, as well as reading and writing to 
 file.
-- The "Exceptional cases", where we make sure that our library does check its inputs (e.g. the maximum number of 
-iterations is positive, the number of rows is larger than 0, the matrix is symmetric if required by the solver) 
-and throws Exceptions for 
-invalid access, dimension mismatch in linear system etc.
+- The "Exceptional cases" test: `TestExceptionalCases.cpp`, where we make sure that our library does check its inputs (e.g. the maximum number of iterations is positive, the number of rows is larger than 0, the matrix is symmetric if required by the solver) 
+and throws Exceptions for invalid access, dimension mismatch in linear system etc.
 
 Note:  
 The output may report a "segmentation fault", when running the tests. This has to do with testing the exceptional
@@ -112,7 +110,7 @@ The main library files in folder "src". The main contents as follows:
 	* Base class `LinSysSolver.hpp` defines:
 		* Solve method
 		* Read/Write method: read from file/keyboard, write to file
-		* invalidation check of input
+		* validation check of input
 
 	* Derived class `IterativeSolver.hpp`, `DirectSolver.hpp`
 		* Iterative methods including `CGSolver.hpp` `GSSolver.hpp` `JacSolver.hpp` `RichSolver.hpp` derived from `IterativdSolver.hp`
