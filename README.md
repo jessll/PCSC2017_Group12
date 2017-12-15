@@ -110,13 +110,13 @@ The main library files are in folder "src". The main contents  are as follows:
 	* Base class `LinSysSolver.hpp` defines:
 		* Solve method
 		* Read/Write method: read from file/keyboard, write to file
-		* validation check of input
+		* Validation check of input
 
 	* Derived classes `IterativeSolver.hpp`, `DirectSolver.hpp`
 		* Iterative methods including Conjugate Gradient(`CGSolver.hpp`),  Gauss-Seidel method (`GSSolver.hpp`), 
-		Jacobi method `JacSolver.hpp`, Richardson iteration (`RichSolver
-		.hpp`) derived from `IterativeSolver.hpp`
-		* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload Solve of solve method
+		Jacobi method (`JacSolver.hpp`), Richardson iteration (`RichSolver
+		.hpp`) derived from `IterativeSolver.hpp`.
+		* Preconditioned Conjugate Gradient method is implemented in `CGSolver.hpp` by overload of solve method
 		 with additional parameter of a preconditioner Matrix.
 		* Direct methods including LU factorization (`LUSolver.hpp`) and Cholesky factorization (`CholeskySolver.hpp`).
 
